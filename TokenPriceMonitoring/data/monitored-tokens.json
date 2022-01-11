@@ -1,0 +1,35 @@
+{
+    "LDO": {
+        "tokenName": "LDO",
+        "tokenAddress": "0x5a98fcbea516cf06857215779fd812ca3bef1b32",
+        "decimals": 18,
+        "currentPrice": 1052.66207,
+        "lastPrice": 1052.66207,
+        "warningPrice": 1100,
+        "warningRange": 6,
+        "warningTone": "WoopWoop.mp3",
+        "updateTime": "2022-01-12 02:39:41"
+    },
+    "MPL": {
+        "tokenName": "MPL",
+        "tokenAddress": "0x33349b282065b0284d756f0577fb39c158f935e6",
+        "decimals": 18,
+        "currentPrice": 224.32367,
+        "lastPrice": 224.08257,
+        "warningPrice": 230,
+        "warningRange": 3,
+        "warningTone": "WoopWoop.mp3",
+        "updateTime": "2022-01-12 02:39:22"
+    },
+    "DVF": {
+        "tokenName": "DVF",
+        "tokenAddress": "0xdddddd4301a082e62e84e43f474f044423921918",
+        "decimals": 18,
+        "currentPrice": 513.61152,
+        "lastPrice": 513.61152,
+        "warningPrice": 450,
+        "warningRange": 2.5,
+        "warningTone": "WoopWoop.mp3",
+        "updateTime": "2022-01-12 02:39:22"
+    }
+}

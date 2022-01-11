@@ -1,0 +1,11 @@
+{
+    "tokenName": "",
+    "tokenAddress": "",
+    "decimals": 0,
+    "currentPrice": 0,
+    "lastPrice": 0,
+    "warningPrice": 0,
+    "warningRange": 0,
+    "warningTone": "WoopWoop.mp3",
+    "updateTime": ""
+}

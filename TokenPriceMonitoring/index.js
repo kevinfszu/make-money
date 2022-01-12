@@ -216,7 +216,8 @@ server.use(router.routes());
 const port = 3000
 const ip = '127.0.0.1'
 server.listen(port, ip, () => {
-    console.log(`Server is running at http://${ip}:${port}`)
+    // console.log(`Server is running at http://${ip}:${port}`)
+    console.log(`服务已启动，请在 Chrome 浏览器中访问 http://${ip}:${port} 使用服务。`)
 })
 
 

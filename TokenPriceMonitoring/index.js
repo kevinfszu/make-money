@@ -6,6 +6,9 @@ const static = require('koa-static')
 const fs = require('fs')
 const path = require('path')
 const dayjs = require('dayjs')
+
+const api = require('./script/api.js')
+const cron = require('node-cron')
 // const crawler = require('./crawler.js')
 
 // const {app, BrowserWindow} = require('electron')
@@ -116,6 +119,17 @@ router.post('/monitored-tokens', async (ctx, next) => {
     // const tokenName = ctx.params.tokenName
     const data = ctx.request.body
 
+    if (data.tokenName === '') {
+        ctx.status = 200
+        ctx.set('Content-Type', 'application/json')
+
+        ctx.body = {
+            code: 1,
+            msg: '“需监控币种”是必填项，请从币种列表中点击选择一个币种'
+        }
+        return
+    }
+
     // 读取已有的代币信息
     let rawData = fs.readFileSync('data/monitored-tokens.json')
     let tokens = JSON.parse(rawData)
@@ -154,7 +168,7 @@ router.post('/monitored-tokens', async (ctx, next) => {
     ctx.body = {
         code: 0
     }
-});
+})
 
 // 修改受监控币种
 router.put('/monitored-tokens/:tokenName', async (ctx, next) => {
@@ -176,7 +190,29 @@ router.put('/monitored-tokens/:tokenName', async (ctx, next) => {
     ctx.set('Content-Type', 'application/json')
 
     ctx.body = {}
-});
+})
+
+// 删除受监控币种
+router.delete('/monitored-tokens/:tokenName', async (ctx, next) => {
+    // console.log(ctx.params, ctx.request.body)
+    const tokenName = ctx.params.tokenName
+    // const data = ctx.request.body
+
+    // 读取已有的代币信息
+    let rawData = fs.readFileSync('data/monitored-tokens.json')
+    let tokens = JSON.parse(rawData)
+
+    delete tokens[tokenName]
+    // console.log(tokens)
+    fs.writeFileSync('data/monitored-tokens.json', JSON.stringify(tokens))
+
+    ctx.status = 200
+    ctx.set('Content-Type', 'application/json')
+
+    ctx.body = {
+        code: 0
+    }
+})
 
 server.use(router.routes());
 
@@ -255,21 +291,74 @@ server.listen(port, ip, () => {
     // }
 
 
+    /**
+     * 初次运行程序时，重置当前币价、上一次币价、错误信息等数据，避免历史数据触发不必要的预警。
+     */
+    // 读取受监控代币
+    let monitoredRawData = fs.readFileSync('data/monitored-tokens.json')
+    let monitoredTokens = JSON.parse(monitoredRawData)
+
+    for (const tokenName in monitoredTokens) {
+        // monitoredTokens[tokenName].error = `无法访问：${err.config.url}`
+        monitoredTokens[tokenName].currentPrice = 0
+        monitoredTokens[tokenName].lastPrice = 0
+        monitoredTokens[tokenName].error = ''
+        monitoredTokens[tokenName].updateTime = ''
+        fs.writeFileSync('data/monitored-tokens.json', JSON.stringify(monitoredTokens))
+    }
+
 
     /**
      * 调用爬虫或第三方接口以获取数据。
      */
-    const api = require('./script/api.js')
-    const fs = require('fs')
-    const cron = require('node-cron')
 
     // 每次启动、每 24 小时获取一次所有币种。
     saveTokens()
     cron.schedule('0 0 0 * * *', saveTokens)
     async function saveTokens() {
-        const tokens = await api.fetTokens()
-        // console.log(tokens)
-        fs.writeFileSync('data/tokens.json', JSON.stringify(tokens))
+        try {
+            const tokens = await api.fetTokens()
+
+            // console.log(tokens)
+            fs.writeFileSync('data/tokens.json', JSON.stringify(tokens))
+        } catch (err) {
+            // console.log('获取币种列表出错。', err)
+            // console.log('获取最佳报价出错。', err.response.data)
+
+            if (err.response) {
+                // const data = err.response.data
+                // // monitoredTokens[tokenName].error = `${data.statusCode}, ${data.description}`
+                // monitoredTokens[tokenName].error = JSON.stringify(data)
+            } else {
+                // 读取受监控代币
+                let monitoredRawData = fs.readFileSync('data/monitored-tokens.json')
+                let monitoredTokens = JSON.parse(monitoredRawData)
+
+                for (const tokenName in monitoredTokens) {
+                    // monitoredTokens[tokenName].error = `无法访问：${err.config.url}`
+                    monitoredTokens[tokenName].error = `无法访问 1inch tokens 接口。`
+                    fs.writeFileSync('data/monitored-tokens.json', JSON.stringify(monitoredTokens))
+                }
+            }
+        }
+        // .catch((err) => {
+        //     console.log('获取最佳报价出错。', err)
+        //     // console.log('获取最佳报价出错。', err.response.data)
+
+        //     if (err.response) {
+        //         // const data = err.response.data
+        //         // // monitoredTokens[tokenName].error = `${data.statusCode}, ${data.description}`
+        //         // monitoredTokens[tokenName].error = JSON.stringify(data)
+        //     } else {
+        //         // 读取受监控代币
+        //         let monitoredRawData = fs.readFileSync('data/monitored-tokens.json')
+        //         let monitoredTokens = JSON.parse(monitoredRawData)
+
+        //         // monitoredTokens[tokenName].error = `无法访问：${err.config.url}`
+        //         monitoredTokens[tokenName].error = `无法访问 1inch quote 接口。`
+        //         fs.writeFileSync('data/monitored-tokens.json', JSON.stringify(monitoredTokens))
+        //     }
+        // })
     }
 
     // 每 20 秒爬取一次受监控币种的报价
@@ -290,28 +379,33 @@ server.listen(port, ip, () => {
             const quoteParams = {
                 fromTokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // ETH
                 toTokenAddress: monitoredTokens[tokenName].tokenAddress,
-                amount: 1 * Math.pow(10, monitoredTokens[tokenName].decimals)
+                amount: 1 * Math.pow(10, 18)       // 基于 ETH 的精度（即 18）
             }
-            const quote = await api.fetchQuote(quoteParams).then((quote) => {
+            const quote = api.fetchQuote(quoteParams).then((quote) => {
                 // 在已有的代币信息的基础上修改
                 monitoredTokens[tokenName].lastPrice = monitoredTokens[tokenName].currentPrice * 1
                 monitoredTokens[tokenName].currentPrice = (quote.toTokenAmount * Math.pow(10, -monitoredTokens[tokenName].decimals)).toFixed(5) * 1
                 monitoredTokens[tokenName].updateTime = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+                monitoredTokens[tokenName].error = ''
                 // console.log(tokens)
                 fs.writeFileSync('data/monitored-tokens.json', JSON.stringify(monitoredTokens))
             })
             .catch((err) => {
-                console.log('获取最佳报价出错。', err.response.data)
+                // console.log('获取最佳报价出错。', err)
+                // console.log('获取最佳报价出错。', err.response.data)
+
+                if (err.response) {
+                    const data = err.response.data
+                    // monitoredTokens[tokenName].error = `${data.statusCode}, ${data.description}`
+                    monitoredTokens[tokenName].error = JSON.stringify(data)
+                } else {
+                    // monitoredTokens[tokenName].error = `无法访问：${err.config.url}`
+                    monitoredTokens[tokenName].error = `无法访问 1inch quote 接口。`
+                }
+                fs.writeFileSync('data/monitored-tokens.json', JSON.stringify(monitoredTokens))
             })
             // console.log(tokenName, quoteParams, quote)
 
         }
     }
-    // for (const key in tokens) {
-    //     //  const tokens = api.fetchQuote({
-    //     //      fromTokenAddress: tokens[key].address,
-    //     //      toTokenAddress: tokens[key].address,
-    //     //      amount: tokens[key].address     // 怎么来的？
-    //     //  })
-    // }
 })()

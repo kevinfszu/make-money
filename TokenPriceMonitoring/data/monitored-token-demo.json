@@ -4,6 +4,7 @@
     "decimals": 0,
     "currentPrice": 0,
     "lastPrice": 0,
+    "error": "",
     "warningPrice": 0,
     "warningRange": 0,
     "warningTone": "WoopWoop.mp3",

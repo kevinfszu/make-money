@@ -14,22 +14,34 @@
     <div class="mycontainer">
         <header>
             <div></div>
-            <a href="/view/add.html" class="btn btn-light btn-set" role="button" style="position: absolute; right: 15px; top: 10px;">添加币种</a>
+            <a href="/view/add.html" class="btn btn-light btn-set" role="button" style="position: absolute; right: 15px; top: 10px;">添加监控币种</a>
         </header>
 
         <main>
             <table id="index-table" class="table">
+                <colgroup>
+                    <col style="width: 70px;">
+                    <col style="width: 150px;">
+                    <col style="width: 180px;">
+                    <col style="width: 150px;">
+                    <col style="width: 105px;">
+                    <col style="width: 105px;">
+                    <col style="width: 90px;">
+                    <col style="min-width: 100px;">
+                    <col style="width: 200px;">
+                </colgroup>
                 <thead>
                     <tr>
                         <th>币种</th>
-                        <th>当前币价（1 ETH）</th>
+                        <th>当前币价<br>(1 ETH)</th>
                         <th>当前币价更新时间</th>
-                        <th>上一次币价（1 ETH）</th>
-                        <th>币价波动幅度</th>
-                        <th>预警币价（1 ETH）</th>
-                        <th>预警波动（%）</th>
+                        <th>上一次币价<br>（1 ETH）</th>
+                        <th>币价<br>波动幅度</th>
+                        <th>预警币价<br>(1 ETH)</th>
+                        <th>预警波动 (%)</th>
+                        <th>错误信息</th>
                         <!-- <th>预警提示音</th> -->
-                        <th></th>
+                        <th>操作</th>
                     </tr>
                 </thead>
 
@@ -78,25 +90,19 @@
             var myModal = new bootstrap.Modal(document.getElementById('myModal'))
             myModal.show()
 
-            // setTimeout(() => {
-            //     document.querySelector('#audio').play()
-            // }, 5000);
-            // setTimeout(() => {
-            //     document.querySelector('#audio').pause()
-            // }, 10000);
 
-            // setInterval(() => {
-            // }, 25000);
-            requestTokenList()
+            setTimeout(() => {
+                requestTokenList()
+            }, 0)        // 等待服务端重置旧数据，避免不必要的预警。
             function requestTokenList() {
                 axios.get('/monitored-tokens')
                     .then(function (res) {
                         const data = res.data
-                        console.log(data, typeof data)
+                        // console.log(data, typeof data)
 
                         let template = ``
                         for (const key in data) {
-                            console.log(key, data[key])
+                            // console.log(key, data[key])
                             const item = data[key]
                             const range = item.currentPrice === 0 || item.lastPrice === 0 ? 0 : (item.currentPrice - item.lastPrice) / item.lastPrice * 100
 
@@ -110,9 +116,12 @@
                                 <td>${range.toFixed(2)}%</td>
                                 <td>${item.warningPrice}</td>
                                 <td>${item.warningRange}%</td>
+                                <td>${item.error}</td>
                                 <!-- <td>${item.warningTone.substring(0, item.warningTone.indexOf('.'))}</td> -->
-                                <td><a href="/view/edit.html?tokenName=${item.tokenName}">编辑</a></td>
-                                <td><a href="/view/delete.html?tokenName=${item.tokenName}">删除</a></td>
+                                <td>
+                                    <a href="/view/edit.html?tokenName=${item.tokenName}">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a class="js-delete" href="#" data-token-name="${item.tokenName}">取消监控</a>
+                                </td>
                             </tr>`
                             document.querySelector('#index-table tbody').innerHTML = template
 
@@ -128,11 +137,44 @@
                     .catch(function (error) {
                         // handle error
                         console.log(error);
+
+                        // 程序异常导致无法监控时，播放另一种预警提示音。
+                        document.querySelector('#audio').setAttribute('src', `/static/audio/PoliceSiren.mp3`)
+                        document.querySelector('#audio').play()
                     })
 
                     setTimeout(() => {
                         requestTokenList()
                     }, 12000);
+            }
+
+            document.querySelector('#index-table').addEventListener('click', function (e) {
+                for (var target = e.target; target && target != this; target = target.parentNode) {
+                    if (target.matches('.js-delete')) {
+                        console.log(target, e)
+                        deleteMonitoredToken.call(target, e)
+                        break
+                    }
+                }
+            }, false)
+
+            function deleteMonitoredToken(e) {
+                const tokenName = this.getAttribute('data-token-name')
+                // console.log(tokenName)
+
+                if (window.confirm(`确定取消对 ${tokenName} 的监控？`)) {
+                    axios.delete(`/monitored-tokens/${tokenName}`)
+                        .then(res => {
+                            console.log(res.data)
+                            const data = res.data
+
+                            if (!data.code) {
+                                location.reload()
+                            } else {
+                                alert(data.msg)
+                            }
+                        })
+                }
             }
 
             function checkWarning(tokenInfo) {
@@ -144,7 +186,7 @@
                 }
 
                 // TODO: 规则待完善
-                if ((tokenInfo.currentPrice >= tokenInfo.warningPrice) || (Math.abs(tokenInfo.currentPrice - tokenInfo.lastPrice) / tokenInfo.lastPrice * 100 >= tokenInfo.warningRange)) {
+                if ((tokenInfo.warningPrice !== 0 && tokenInfo.currentPrice >= tokenInfo.warningPrice) || (tokenInfo.warningRange !== 0 && Math.abs(tokenInfo.currentPrice - tokenInfo.lastPrice) / tokenInfo.lastPrice * 100 >= tokenInfo.warningRange)) {
                     isWarning = true
                 }
 

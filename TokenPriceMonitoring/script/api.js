@@ -2,7 +2,6 @@
  * API 来源：https://docs.1inch.io/docs/aggregation-protocol/api/swagger
  */
 
-// const fetch = require('node-fetch')
 const axios = require('axios').default;
 
 
@@ -12,6 +11,7 @@ const apiBaseUrl = 'https://api.1inch.io/v4.0/' + chainId
 function buildApiRequestUrl(methodName, queryParams = {}) {
     return apiBaseUrl + methodName + '?' + (new URLSearchParams(queryParams)).toString()
 }
+
 
 async function fetTokens() {
     const tokens = await axios(buildApiRequestUrl('/tokens'))
@@ -24,6 +24,7 @@ async function fetTokens() {
     return tokens
 }
 // fetTokens()     // FIXME: 用于测试
+
 
 async function fetchQuote(quoteParams) {
     // const quoteParams = {

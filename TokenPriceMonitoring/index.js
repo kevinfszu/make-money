@@ -9,9 +9,6 @@ const dayjs = require('dayjs')
 
 const api = require('./script/api.js')
 const cron = require('node-cron')
-// const crawler = require('./crawler.js')
-
-// const {app, BrowserWindow} = require('electron')
 
 /**
  * 1、启动一个服务器。
@@ -227,14 +224,6 @@ server.listen(port, ip, () => {
 
 ;(async () => {
 
-    // function sleep(ms) {
-    //     return new Promise((resolve) => {
-    //         setTimeout(resolve, ms);
-    //     });
-    // }
-    // console.log('等待 5 秒，等待服务器启动。')
-    // await sleep(5000)
-
     /**
      * 2、自动为用户打开用户界面。
      */
@@ -341,24 +330,6 @@ server.listen(port, ip, () => {
                 }
             }
         }
-        // .catch((err) => {
-        //     console.log('获取最佳报价出错。', err)
-        //     // console.log('获取最佳报价出错。', err.response.data)
-
-        //     if (err.response) {
-        //         // const data = err.response.data
-        //         // // monitoredTokens[tokenName].error = `${data.statusCode}, ${data.description}`
-        //         // monitoredTokens[tokenName].error = JSON.stringify(data)
-        //     } else {
-        //         // 读取受监控代币
-        //         let monitoredRawData = fs.readFileSync('data/monitored-tokens.json')
-        //         let monitoredTokens = JSON.parse(monitoredRawData)
-
-        //         // monitoredTokens[tokenName].error = `无法访问：${err.config.url}`
-        //         monitoredTokens[tokenName].error = `无法访问 1inch quote 接口。`
-        //         fs.writeFileSync('data/monitored-tokens.json', JSON.stringify(monitoredTokens))
-        //     }
-        // })
     }
 
     // 每 20 秒爬取一次受监控币种的报价

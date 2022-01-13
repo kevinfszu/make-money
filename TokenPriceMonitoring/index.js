@@ -131,7 +131,6 @@ router.post('/monitored-tokens', async (ctx, next) => {
     let rawData = fs.readFileSync('data/monitored-tokens.json')
     let tokens = JSON.parse(rawData)
 
-
     if (tokens[data.tokenName]) {
         ctx.status = 200
         ctx.set('Content-Type', 'application/json')
@@ -144,6 +143,18 @@ router.post('/monitored-tokens', async (ctx, next) => {
         return
     }
 
+    if (data.warningLowPrice >= data.warningHighPrice) {
+        ctx.status = 200
+        ctx.set('Content-Type', 'application/json')
+
+        ctx.body = {
+            code: 1,
+            msg: '预警币价下限不能大于或等于预警币价上限'
+        }
+
+        return
+    }
+
     // 读取“受监控的代币”模板
     let demoRawData = fs.readFileSync('data/monitored-token-demo.json')
     let demo = JSON.parse(demoRawData)
@@ -151,7 +162,8 @@ router.post('/monitored-tokens', async (ctx, next) => {
     demo.tokenName = data.tokenName
     demo.tokenAddress = data.tokenAddress
     demo.decimals = data.decimals * 1
-    demo.warningPrice = data.warningPrice * 1
+    demo.warningLowPrice = data.warningLowPrice * 1
+    demo.warningHighPrice = data.warningHighPrice * 1
     demo.warningRange = data.warningRange * 1
     demo.warningTone = data.warningTone
     // console.log(demo)
@@ -173,11 +185,24 @@ router.put('/monitored-tokens/:tokenName', async (ctx, next) => {
     const tokenName = ctx.params.tokenName
     const data = ctx.request.body
 
+    if (data.warningLowPrice >= data.warningHighPrice) {
+        ctx.status = 200
+        ctx.set('Content-Type', 'application/json')
+
+        ctx.body = {
+            code: 1,
+            msg: '预警币价下限不能大于或等于预警币价上限'
+        }
+
+        return
+    }
+
     // 读取已有的代币信息
     let rawData = fs.readFileSync('data/monitored-tokens.json')
     let tokens = JSON.parse(rawData)
 
-    tokens[tokenName].warningPrice = data.warningPrice * 1
+    tokens[tokenName].warningLowPrice = data.warningLowPrice * 1
+    tokens[tokenName].warningHighPrice = data.warningHighPrice * 1
     tokens[tokenName].warningRange = data.warningRange * 1
     tokens[tokenName].warningTone = data.warningTone
     // console.log(tokens)
@@ -211,7 +236,7 @@ router.delete('/monitored-tokens/:tokenName', async (ctx, next) => {
     }
 })
 
-server.use(router.routes());
+server.use(router.routes())
 
 const port = 3000
 const ip = '127.0.0.1'
@@ -326,7 +351,7 @@ server.listen(port, ip, () => {
 
                 for (const tokenName in monitoredTokens) {
                     // monitoredTokens[tokenName].error = `无法访问：${err.config.url}`
-                    monitoredTokens[tokenName].error = `无法访问 1inch tokens 接口。`
+                    monitoredTokens[tokenName].error = `${dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss')}。无法访问 1inch tokens 接口。`
                     fs.writeFileSync('data/monitored-tokens.json', JSON.stringify(monitoredTokens))
                 }
             }
@@ -358,7 +383,7 @@ server.listen(port, ip, () => {
                 monitoredTokens[tokenName].lastPrice = monitoredTokens[tokenName].currentPrice * 1
                 monitoredTokens[tokenName].currentPrice = (quote.toTokenAmount * Math.pow(10, -monitoredTokens[tokenName].decimals)).toFixed(5) * 1
                 monitoredTokens[tokenName].updateTime = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss')
-                monitoredTokens[tokenName].error = ''
+                // monitoredTokens[tokenName].error = ''
                 // console.log(tokens)
                 fs.writeFileSync('data/monitored-tokens.json', JSON.stringify(monitoredTokens))
             })
@@ -369,10 +394,10 @@ server.listen(port, ip, () => {
                 if (err.response) {
                     const data = err.response.data
                     // monitoredTokens[tokenName].error = `${data.statusCode}, ${data.description}`
-                    monitoredTokens[tokenName].error = JSON.stringify(data)
+                    monitoredTokens[tokenName].error = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss') + '。' + JSON.stringify(data)
                 } else {
                     // monitoredTokens[tokenName].error = `无法访问：${err.config.url}`
-                    monitoredTokens[tokenName].error = `无法访问 1inch quote 接口。`
+                    monitoredTokens[tokenName].error = `${dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss')}。无法访问 1inch quote 接口。`
                 }
                 fs.writeFileSync('data/monitored-tokens.json', JSON.stringify(monitoredTokens))
             })

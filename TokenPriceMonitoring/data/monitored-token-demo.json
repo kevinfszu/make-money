@@ -5,7 +5,8 @@
     "currentPrice": 0,
     "lastPrice": 0,
     "error": "",
-    "warningPrice": 0,
+    "warningLowPrice": 0,
+    "warningHighPrice": 0,
     "warningRange": 0,
     "warningTone": "WoopWoop.mp3",
     "updateTime": ""

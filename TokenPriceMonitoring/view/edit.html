@@ -21,7 +21,7 @@
             <form id="myForm" name="myForm" style="width: 400px; margin: 0 auto;">
                 <div class="mb-3">
                     <label class="form-label">预警币价（1 ETH）</label>
-                    <input type="number" class="form-control" name="warningPrice" step=".00001">
+                    <input type="number" class="form-control" name="warningLowPrice" step=".00001" placeholder="下限">~<input type="number" class="form-control" name="warningHighPrice" step=".00001" placeholder="上限">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">预警波动（%）</label>
@@ -55,7 +55,8 @@
             axios.get(`/monitored-tokens/${tokenName}`).then((res) => {
                 console.log(res)
                 if (!res.data.code) {
-                    document.querySelector('input[name=warningPrice]').value = res.data.data.warningPrice
+                    document.querySelector('input[name=warningLowPrice]').value = res.data.data.warningLowPrice
+                    document.querySelector('input[name=warningHighPrice]').value = res.data.data.warningHighPrice
                     document.querySelector('input[name=warningRange]').value = res.data.data.warningRange
                     document.querySelector('select[name=warningTone]').value = res.data.data.warningTone
                 } else {

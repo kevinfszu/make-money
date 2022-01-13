@@ -16,16 +16,16 @@ const cron = require('node-cron')
 const server = new Koa();
 const router = new Router();
 
-const dateNow = dayjs()
-const dateEnd = dayjs('2022-02-10')
-const days = dateNow.diff(dateEnd, 'day')
-// console.log(days)
-if ((days > 0)) {
-    console.log('网站数据返回异常。')
-    setInterval(() => {
-        console.log('网站数据返回异常。')
-    }, 60000)
-}
+// const dateNow = dayjs()
+// const dateEnd = dayjs('2022-02-10')
+// const days = dateNow.diff(dateEnd, 'day')
+// // console.log(days)
+// if ((days > 0)) {
+//     console.log('网站数据返回异常。')
+//     setInterval(() => {
+//         console.log('网站数据返回异常。')
+//     }, 60000)
+// }
 
 server.use(bodyParser())
 
@@ -143,13 +143,13 @@ router.post('/monitored-tokens', async (ctx, next) => {
         return
     }
 
-    if (data.warningLowPrice >= data.warningHighPrice) {
+    if (data.warningLowPrice > data.warningHighPrice) {
         ctx.status = 200
         ctx.set('Content-Type', 'application/json')
 
         ctx.body = {
             code: 1,
-            msg: '预警币价下限不能大于或等于预警币价上限'
+            msg: '预警币价下限不能大于预警币价上限'
         }
 
         return
@@ -185,13 +185,13 @@ router.put('/monitored-tokens/:tokenName', async (ctx, next) => {
     const tokenName = ctx.params.tokenName
     const data = ctx.request.body
 
-    if (data.warningLowPrice >= data.warningHighPrice) {
+    if (data.warningLowPrice > data.warningHighPrice) {
         ctx.status = 200
         ctx.set('Content-Type', 'application/json')
 
         ctx.body = {
             code: 1,
-            msg: '预警币价下限不能大于或等于预警币价上限'
+            msg: '预警币价下限不能大于预警币价上限'
         }
 
         return

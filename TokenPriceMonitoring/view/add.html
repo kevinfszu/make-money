@@ -35,7 +35,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">预警币价范围（1 ETH）</label>
-                    <input type="number" class="form-control" name="warningLowPrice" step=".00001">~<input type="number" class="form-control" name="warningHighPrice" step=".00001">
+                    <input type="number" class="form-control" name="warningLowPrice" step=".00001" placeholder="下限">~<input type="number" class="form-control" name="warningHighPrice" step=".00001" placeholder="上限">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">预警波动（%）</label>
@@ -117,7 +117,8 @@
                     tokenName: document.querySelector('input[name=tokenName]').value,
                     tokenAddress: document.querySelector('input[name=tokenAddress]').value,
                     decimals: document.querySelector('input[name=decimals]').value,
-                    warningPrice: document.querySelector('input[name=warningPrice]').value,
+                    warningLowPrice: document.querySelector('input[name=warningLowPrice]').value,
+                    warningHighPrice: document.querySelector('input[name=warningHighPrice]').value,
                     warningRange: document.querySelector('input[name=warningRange]').value,
                     warningTone: document.querySelector('input[name=warningTone]').value
                 }).then((res) => {

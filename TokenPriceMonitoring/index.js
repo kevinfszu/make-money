@@ -13,8 +13,8 @@ const cron = require('node-cron')
 /**
  * 1、启动一个服务器。
  */
-const server = new Koa();
-const router = new Router();
+const server = new Koa()
+const router = new Router()
 
 // const dateNow = dayjs()
 // const dateEnd = dayjs('2022-02-10')
@@ -28,7 +28,7 @@ const router = new Router();
 // }
 
 server.use(bodyParser())
-
+server.use(render)
 server.use(static('.'))
 
 // router.get('/', async (ctx, next) => {

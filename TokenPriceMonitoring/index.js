@@ -143,7 +143,7 @@ router.post('/monitored-tokens', async (ctx, next) => {
         return
     }
 
-    if (data.warningLowPrice > data.warningHighPrice) {
+    if (data.warningLowPrice * 1 > data.warningHighPrice * 1) {
         ctx.status = 200
         ctx.set('Content-Type', 'application/json')
 
@@ -185,7 +185,7 @@ router.put('/monitored-tokens/:tokenName', async (ctx, next) => {
     const tokenName = ctx.params.tokenName
     const data = ctx.request.body
 
-    if (data.warningLowPrice > data.warningHighPrice) {
+    if (data.warningLowPrice * 1 > data.warningHighPrice * 1) {
         ctx.status = 200
         ctx.set('Content-Type', 'application/json')
 

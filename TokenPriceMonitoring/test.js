@@ -93,6 +93,24 @@ async function makeRequest4() {
     return response.data
 }
 
+async function makeRequest5() {
+    const params = {
+        symbols: 'LDO:ETH'
+    }
+    let url = `https://api.deversifi.com/market-data/tickers?symbols=${params.symbols}`
+
+
+    const response = await axios(url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+    })
+
+    return response.data
+}
+
 
 async function makeRequest2() {
     let url = `https://api.deversifi.com/market-data/vwap/LDO:ETH?amount=1&isFirstIn=false`
@@ -112,7 +130,7 @@ async function makeRequest2() {
 
 (async () => {
     // setInterval(async () => {
-    const test = await makeRequest3()
+    const test = await makeRequest5()
     console.log(test)
     // }, 1000 * 60)
 })()

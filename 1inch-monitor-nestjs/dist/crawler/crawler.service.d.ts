@@ -7,7 +7,7 @@ export declare class CrawlerService {
     private apiBaseUrl;
     constructor(schedulerRegistry: SchedulerRegistry, monitoredTokenService: MonitoredTokenService);
     handleTimeout(): Promise<void>;
-    saveQuote(): Promise<void>;
+    saveQuote(monitoredTokenService: any, fetchQuote: any): Promise<void>;
     buildApiRequestUrl(methodName: any, queryParams?: {}): string;
     fetTokens(): Promise<any>;
     fetchQuote(quoteParams: any): Promise<any>;

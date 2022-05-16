@@ -29,14 +29,15 @@ let CrawlerService = class CrawlerService {
     }
     async handleTimeout() {
         const browser = await puppeteer.launch({
-            executablePath: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
+            channel: 'chrome',
+            headless: false,
             defaultViewport: null,
             args: ['--start-maximized']
         });
         const pages = await browser.pages();
         const page = pages[0];
         await page.goto(`https://app.deversifi.com/swap`);
-        await page.waitForSelector('body > div.sc-ilfuhL.dVdrgf.modal-transition-appear-done.modal-transition-enter-done > div.sc-jHkVzv.lnYvuo > div > div > div.sc-xiLah.cFakQg', { visible: true, timeout: 15000 });
+        await page.waitForSelector('body > div.sc-ilfuhL.dVdrgf.modal-transition-appear-done.modal-transition-enter-done > div.sc-jHkVzv.lnYvuo > div > div > div.sc-xiLah.cFakQg', { visible: true, timeout: 0 });
         await page.click('body > div.sc-ilfuhL.dVdrgf.modal-transition-appear-done.modal-transition-enter-done > div.sc-jHkVzv.lnYvuo > div > div > div.sc-xiLah.cFakQg');
         this.getData(page, this.wait, this.monitoredTokenService);
         const interval = setInterval(this.getData, 30000, page, this.wait, this.monitoredTokenService);

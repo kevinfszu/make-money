@@ -12,9 +12,9 @@ export class CrawlerService {
   @Timeout(1000)
   async handleTimeout() {
     const browser = await puppeteer.launch({
-      executablePath: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
-      // channel: 'chrome',
-      // headless: false,
+      // executablePath: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
+      channel: 'chrome',
+      headless: false,
       defaultViewport: null,
       args: ['--start-maximized']
     })
@@ -22,7 +22,7 @@ export class CrawlerService {
     const page = pages[0]
 
     await page.goto(`https://app.deversifi.com/swap`)
-    await page.waitForSelector('body > div.sc-ilfuhL.dVdrgf.modal-transition-appear-done.modal-transition-enter-done > div.sc-jHkVzv.lnYvuo > div > div > div.sc-xiLah.cFakQg', { visible: true, timeout: 15000 })
+    await page.waitForSelector('body > div.sc-ilfuhL.dVdrgf.modal-transition-appear-done.modal-transition-enter-done > div.sc-jHkVzv.lnYvuo > div > div > div.sc-xiLah.cFakQg', { visible: true, timeout: 0 })
     await page.click('body > div.sc-ilfuhL.dVdrgf.modal-transition-appear-done.modal-transition-enter-done > div.sc-jHkVzv.lnYvuo > div > div > div.sc-xiLah.cFakQg')
     // console.log('已关闭弹层。')
 

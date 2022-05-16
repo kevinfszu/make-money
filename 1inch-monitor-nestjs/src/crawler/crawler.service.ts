@@ -17,14 +17,14 @@ export class CrawlerService {
 
   @Timeout(1000)
   async handleTimeout() {
-    this.saveQuote();
-    const interval = setInterval(this.saveQuote, 20000);
+    this.saveQuote(this.monitoredTokenService, this.fetchQuote);
+    const interval = setInterval(this.saveQuote, 20000, this.monitoredTokenService, this.fetchQuote);
     this.schedulerRegistry.addInterval('crawler', interval);
   }
 
-  async saveQuote() {
+  async saveQuote(monitoredTokenService, fetchQuote) {
     // 读取受监控代币
-    const monitoredTokens = await this.monitoredTokenService.findAll();
+    const monitoredTokens = await monitoredTokenService.findAll();
 
     for (const monitoredToken of monitoredTokens) {
       const quoteParams = {
@@ -32,51 +32,36 @@ export class CrawlerService {
         toTokenAddress: monitoredToken.tokenAddress,
         amount: 1 * Math.pow(10, 18), // 基于 ETH 的精度（即 18）
       };
-      const quote = this.fetchQuote(quoteParams)
-        .then((quote) => {
-          // 在已有的代币信息的基础上修改
-          monitoredToken.lastPrice = monitoredToken.currentPrice * 1;
-          monitoredToken.currentPrice = (quote.toTokenAmount * Math.pow(10, -monitoredToken.decimals))
-          // .toFixed(5);
-          monitoredToken.updateTime = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-          // fs.writeFileSync(
-          //   'data/monitored-tokens.json',
-          //   JSON.stringify(monitoredTokens),
-          // );
-        })
-        .catch(async (err) => {
-          // console.log('获取最佳报价出错。', err)
-          // console.log('获取最佳报价出错。', err.response.data)
 
-          if (err.response) {
-            const data = err.response.data;
-            // monitoredToken.error = `${data.statusCode}, ${data.description}`
-            monitoredToken.errorMsg =
-              dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss') +
-              '。' +
-              JSON.stringify(data);
-          } else {
-            // monitoredToken.error = `无法访问：${err.config.url}`
-            monitoredToken.errorMsg = `${dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss', )}。无法访问 1inch quote 接口。`;
-          }
-          // fs.writeFileSync(
-          //   'data/monitored-tokens.json',
-          //   JSON.stringify(monitoredTokens),
-          // );
-        });
+      try {
+        const quote = await fetchQuote(quoteParams)
+        console.log(monitoredToken.tokenName, quoteParams, quote)
 
-        await this.monitoredTokenService.update(monitoredToken.tokenName, monitoredToken);
-        console.log(`${dayjs().format('HH:mm:ss')}, ${monitoredToken.tokenName} currentPrice: ${monitoredToken.currentPrice}`)
-      // console.log(tokenName, quoteParams, quote)
+        // 在已有的代币信息的基础上修改
+        monitoredToken.lastPrice = monitoredToken.currentPrice * 1;
+        // monitoredToken.currentPrice = (quote.toTokenAmount * Math.pow(10, -monitoredToken.decimals)).toFixed(5) * 1;
+        monitoredToken.currentPrice = 222;
+        monitoredToken.updateTime = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+      } catch (err) {
+        if (err.response) {
+          const data = err.response.data;
+          // monitoredToken.error = `${data.statusCode}, ${data.description}`
+          monitoredToken.errorMsg =
+            dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss') + '。' + JSON.stringify(data);
+        } else {
+          // monitoredToken.error = `无法访问：${err.config.url}`
+          monitoredToken.errorMsg = `${dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss', )}。无法访问 1inch quote 接口。`;
+        }
+      }
+
+      await monitoredTokenService.update(monitoredToken.tokenName, monitoredToken);
+      console.log(`${dayjs().format('HH:mm:ss')}, ${monitoredToken.tokenName} currentPrice: ${monitoredToken.currentPrice}`)
     }
   }
 
   buildApiRequestUrl(methodName, queryParams = {}) {
     return (
-      this.apiBaseUrl +
-      methodName +
-      '?' +
-      new URLSearchParams(queryParams).toString()
+      this.apiBaseUrl + methodName + '?' + new URLSearchParams(queryParams).toString()
     );
   }
 
@@ -109,7 +94,7 @@ export class CrawlerService {
     // .catch((err) => {
     //     console.log('获取最佳报价出错。', quoteParams, err)
     // })
-    // console.log('quote api: ', quote)
+    console.log('quote api: ', quote)
 
     return quote;
   }

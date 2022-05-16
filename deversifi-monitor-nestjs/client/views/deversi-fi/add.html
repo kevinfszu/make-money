@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>币价监控工具-新增</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/main.css">
+
+</head>
+<body>
+    <div class="mycontainer">
+        <header>
+            <div></div>
+            <!-- <a href="/view/index.html" class="btn btn-light btn-set">主页</a> -->
+        </header>
+
+        <main>
+            <form id="myForm" name="myForm" style="width: 400px; margin: 0 auto;">
+
+                <div class="mb-3">
+                    <label class="form-label">需监控币种</label>
+                    <input id="token-selected" type="text" class="form-control" readonly required>
+                    <input type="hidden" class="form-control" name="tokenName">
+                    <input type="hidden" class="form-control" name="tokenAddress">
+                    <input type="hidden" class="form-control" name="decimals">
+                </div>
+
+                <div class="mb-3">
+                    <input id="js-search" type="text" class="form-control form-control-sm" placeholder="可输入全称、简称、地址进行模糊搜索">
+                </div>
+                <div class="mb-3" id="token-list" style="max-height: 300px; overflow-y: auto;"></div>
+
+                <div class="mb-3">
+                    <label class="form-label">预警币价范围（0.1 ETH）</label>
+                    <input type="number" class="form-control" name="warningLowPrice" step=".00001" placeholder="下限">~<input type="number" class="form-control" name="warningHighPrice" step=".00001" placeholder="上限">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">预警波动（%）</label>
+                    <input type="number" class="form-control" name="warningRange" step=".00001">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">预警提示音</label>
+                    <input type="text" class="form-control" value="WoopWoop" readonly>
+                    <input type="hidden" class="form-control" name="warningTone" value="WoopWoop.mp3">
+                    <!-- <select class="form-select" name="warningTone" readonly>
+                        <option value="WoopWoop.mp3">WoopWoop</option>
+                        <option value="PoliceSiren.mp3">PoliceSiren</option>
+                        <option value="TornadoSiren.mp3">TornadoSiren</option>
+                    </select> -->
+                </div>
+                <a href="/views/deversi-fi/index.html" class="btn btn-secondary">取消</a>
+                <button type="submit" class="btn btn-primary">提交</button>
+            </form>
+        </main>
+
+        <footer></footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script>
+        window.onload = function () {
+            // console.log(location.search.split('?')[1].split('=')[1])
+            // const tokenName = location.search.split('?')[1].split('=')[1]
+
+
+
+            // token 列表
+            axios.get(`/tokens`).then((res) => {
+                // console.log(res)
+                if (res.data.statusCode) {
+                    alert(res.data.message)
+                } else {
+                   const data = res.data
+                    let fragment = `<div class="list-group">`
+                    for (const key in data) {
+                        fragment += `<label class="list-group-item token-item" title="${data[key].address}">
+                                <input name="tokenInfo" class="form-check-input me-1" type="radio" value="${data[key].name}||${data[key].symbol}||${data[key].address}||${data[key].decimals}">
+                                <span class="fw-bolder token-name">${data[key].name}</span>
+                                <span class="fw-light">(<span class="token-symbol">${data[key].symbol}</span>)</span>
+                                <p class="fs-6 fw-light token-address" style="display: none;">${data[key].address}</p>
+                            </label>`
+                    }
+                    fragment += `</div>`
+                    document.querySelector('#token-list').innerHTML = fragment
+                }
+            }).then((res) => {
+                fuzzySearch()
+
+                document.querySelectorAll('input[name=tokenInfo]').forEach(element => {
+                    element.addEventListener('change', function (e) {
+                        console.log(e)
+                        const value = e.target.value
+                        const tokenInfo = value.split('||')
+
+                        document.querySelector('#token-selected').value = `${tokenInfo[0]} (${tokenInfo[1]})`
+                        document.querySelector('input[name=tokenName]').value = tokenInfo[1]
+                        document.querySelector('input[name=tokenAddress]').value = tokenInfo[2]
+                        document.querySelector('input[name=decimals]').value = tokenInfo[3]
+                    })
+                });
+            })
+
+
+            document.querySelector('form').addEventListener('submit', function (e) {
+                e.preventDefault()
+                console.log(e, this)
+
+                // // let myForm = document.getElementById('myForm')
+                // let formData = new FormData(document.getElementById('myForm'))
+                // console.log(formData)
+
+                axios.post(`/monitored-token`, {
+                    tokenName: document.querySelector('input[name=tokenName]').value,
+                    tokenAddress: document.querySelector('input[name=tokenAddress]').value,
+                    decimals: document.querySelector('input[name=decimals]').value,
+                    warningLowPrice: document.querySelector('input[name=warningLowPrice]').value,
+                    warningHighPrice: document.querySelector('input[name=warningHighPrice]').value,
+                    warningRange: document.querySelector('input[name=warningRange]').value,
+                    warningTone: document.querySelector('input[name=warningTone]').value
+                }).then((res) => {
+                    console.log('res: ', res)
+                    if (res.data.statusCode) {
+                        alert(res.data.message)
+                    } else {
+                        location.href = '/views/deversi-fi/index.html'
+                    }
+                }).catch((reason) => {
+                    console.log('reason: ', reason)
+                    alert(reason.response.data.message)
+                })
+            })
+
+            function fuzzySearch() {
+                // 模块搜索
+                var $search_box = document.querySelector('#js-search')
+                var $token_item = document.querySelectorAll('#token-list .token-item');
+
+                var $token_name = document.querySelectorAll('#token-list .token-name');
+                var $token_symbol = document.querySelectorAll('#token-list .token-symbol');
+                var $token_address = document.querySelectorAll('#token-list .token-address');
+
+                var timer = null;
+
+                $search_box.addEventListener('input', search)
+                $search_box.addEventListener('propertychange', search)
+                function search(e) {
+                    var search_value = this.value.trim();
+
+                    clearTimeout(timer);
+
+                    // 节流
+                    timer = setTimeout(function() {
+                        console.log('search_value: ', search_value)
+                        if (search_value === '') {
+                            for (var i = 0, len = $token_item.length; i < len; i++) {
+                                $token_item[i].style['display'] = 'block';
+                            }
+                            return;
+                        }
+
+                        search_value = search_value.toLowerCase()
+                        console.log('search_value LowerCase: ', search_value, $token_name)
+                        for (var i = 0, len = $token_item.length; i < len; i++) {
+                            if ($token_name[i].textContent.toLocaleLowerCase().indexOf(search_value) > -1 || $token_symbol[i].textContent.toLocaleLowerCase().indexOf(search_value) > -1 || $token_address[i].textContent.toLocaleLowerCase().indexOf(search_value) > -1) {
+                                $token_item[i].style['display'] = 'block';
+                            } else {
+                                $token_item[i].style['display'] = 'none';
+                            }
+
+                        }
+                    }, 250);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

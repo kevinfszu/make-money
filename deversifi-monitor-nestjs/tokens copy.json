@@ -1,0 +1,1174 @@
+{
+    "DVF": {
+        "starkExVersion": "4",
+        "defaultFeeRate": 0.002,
+        "defaultFeeRateSwap": 0.003,
+        "deversifiAddress": "0xaf8ae6955d07776ab690e565ba6fbc79b8de3a5d",
+        "starkExContractAddress": "0x5d22045DAcEAB03B158031eCB7D9d06Fad24609b",
+        "withdrawalBalanceReaderContractAddress": "0x650ca2dca7e2e2c8be3bb84e0a39dd77891d4d1e",
+        "starkExTransferRegistryContractAddress": "0xc3CA38091061e3E5358A52d74730F16C60cA9c26",
+        "registrationAndDepositInterfaceAddress": "0xeD9d63a96c27f87B07115b56b2e3572827f21646",
+        "AMMfactoryAddress": "0x5d22045DAcEAB03B158031eCB7D9d06Fad24609b",
+        "AMMrouterAddress": "0x5d22045DAcEAB03B158031eCB7D9d06Fad24609b",
+        "bridgeConfigPerChain": {
+            "MATIC_POS": {
+                "contractAddress": "0xBA4EEE20F434bC3908A0B18DA496348657133A7E",
+                "withdrawalFeeRatio": 1,
+                "maxWithdrawalRatio": 0.7,
+                "maxTotalUsdInContract": 5000000
+            },
+            "ARBITRUM": {
+                "contractAddress": "0x10417734001162Ea139e8b044DFe28DbB8B28ad0",
+                "withdrawalFeeRatio": 5,
+                "maxWithdrawalRatio": 0.7,
+                "maxTotalUsdInContract": 1000000
+            }
+        },
+        "exchangeSymbols": [
+            "ETH:USDT",
+            "MKR:USDT",
+            "PNK:ETH",
+            "PNK:USDT",
+            "DAI:ETH",
+            "DAI:USDT",
+            "BTC:USDT",
+            "BTC:USDC",
+            "ZRX:ETH",
+            "ZRX:USDT",
+            "DUSK:USDT",
+            "ETH:BTC",
+            "USDC:USDT",
+            "OMG:ETH",
+            "OMG:USDT",
+            "LINK:USDT",
+            "BAT:USDT",
+            "MLN:USDT",
+            "COMP:USDT",
+            "UNI:USDT",
+            "YFI:USDT",
+            "BAL:USDT",
+            "ANT:USDT",
+            "SNX:USDT",
+            "AAVE:USDT",
+            "SUSHI:USDT",
+            "LRC:USDT",
+            "CUSDT:USDT",
+            "LDO:ETH",
+            "ALN:USDT",
+            "ETH:USDC",
+            "1INCH:USDT",
+            "CEL:USDT",
+            "DVF:USDT",
+            "DVF:ETH",
+            "DVF:xDVF",
+            "MATIC:USDT",
+            "MATIC:ETH",
+            "SHIB:USDT",
+            "CRV:ETH",
+            "MPL:ETH",
+            "RAI:ETH",
+            "CRV:USDT",
+            "SPELL:USDT",
+            "MANA:USDT",
+            "LTC:USDT",
+            "DOGE:USDT",
+            "PSP:ETH",
+            "AUST:USDT",
+            "APE:USDT",
+            "WSTETH:ETH"
+        ],
+        "dlmMarkets": [
+            "DVF:xDVF"
+        ],
+        "tempStarkVaultId": 1,
+        "minDepositUSDT": 1,
+        "authVersion": 2,
+        "disableLP": true,
+        "deversifiStarkKeyHex": "0x037e11c9c9817ce9f3cb31ed7f00491478a7689bb8442b9ff37596ac35f41680"
+    },
+    "tokenBalancesHistory": [
+        "xDVF"
+    ],
+    "tradingRewards": {
+        "weeklyAmount": 5000,
+        "rewardToken": "DVF",
+        "excludedMarkets": [
+            "USDC:USDT",
+            "DAI:USDT",
+            "CUSDT:USDT",
+            "AUST:USDT",
+            "WSTETH:ETH"
+        ],
+        "A": 3,
+        "B": 0.8,
+        "C": 0.2
+    },
+    "ammPools": {
+        "DVFETH": {
+            "tokens": [
+                "DVF",
+                "ETH"
+            ],
+            "lpToken": "LP-TEMP",
+            "swapFees": 0.003,
+            "poolFee": 0.002,
+            "operatorFee": 0.001,
+            "weeklyMiningReward": 0,
+            "enabled": true
+        },
+        "MPLETH": {
+            "tokens": [
+                "MPL",
+                "ETH"
+            ],
+            "lpToken": "LP-TEMP-MPL",
+            "swapFees": 0.003,
+            "poolFee": 0.002,
+            "operatorFee": 0.001,
+            "weeklyMiningReward": 0,
+            "enabled": true
+        },
+        "LDOETH": {
+            "tokens": [
+                "LDO",
+                "ETH"
+            ],
+            "lpToken": "LP-TEMP-LDO",
+            "swapFees": 0.003,
+            "poolFee": 0.002,
+            "operatorFee": 0.001,
+            "weeklyMiningReward": 0,
+            "enabled": true
+        },
+        "CRVETH": {
+            "tokens": [
+                "CRV",
+                "ETH"
+            ],
+            "lpToken": "LP-TEMP-CRV",
+            "swapFees": 0.003,
+            "poolFee": 0.002,
+            "operatorFee": 0.001,
+            "weeklyMiningReward": 0,
+            "enabled": true
+        },
+        "RAIETH": {
+            "tokens": [
+                "RAI",
+                "ETH"
+            ],
+            "lpToken": "LP-TEMP-RAI",
+            "swapFees": 0.003,
+            "poolFee": 0.002,
+            "operatorFee": 0.001,
+            "weeklyMiningReward": 0,
+            "enabled": true
+        },
+        "MATICETH": {
+            "tokens": [
+                "MATIC",
+                "ETH"
+            ],
+            "lpToken": "LP-TEMP-MATIC",
+            "swapFees": 0.003,
+            "poolFee": 0.002,
+            "operatorFee": 0.001,
+            "weeklyMiningReward": 0,
+            "enabled": true
+        },
+        "PSPETH": {
+            "tokens": [
+                "PSP",
+                "ETH"
+            ],
+            "lpToken": "LP-TEMP-PSP",
+            "swapFees": 0.003,
+            "poolFee": 0.002,
+            "operatorFee": 0.001,
+            "weeklyMiningReward": 0,
+            "enabled": true
+        }
+    },
+    "tokenRegistry": {
+        "ETH": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.01,
+            "transferFee": 0.0003,
+            "starkTokenId": "0xb333e3142fe16b78628f19bb15afddaef437e72d6d7f5c6c20c6801a27fba6",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x0000000000000000000000000000000000000000",
+                "ARBITRUM": "0x0000000000000000000000000000000000000000"
+            },
+            "fastWithdrawalRequiredGas": 88000,
+            "coingeckoId": "ethereum",
+            "deployedAtBlock": 0
+        },
+        "DAI": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 10,
+            "transferFee": 1,
+            "tokenAddress": "0x6b175474e89094c44da98b954eedeac495271d0f",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x6b175474e89094c44da98b954eedeac495271d0f",
+                "MATIC_POS_PARENT": "0x6b175474e89094c44da98b954eedeac495271d0f",
+                "MATIC_POS": "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
+                "ARBITRUM": "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1"
+            },
+            "starkTokenId": "0x3db9d83c9328d408e4b27f5f8e6e97ba4dc3d0f751331c273645ce39eaaf325",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "dai",
+            "deployedAtBlock": 8928158
+        },
+        "DUSK": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 100,
+            "transferFee": 4,
+            "tokenAddress": "0x940a2db1b7008b6c776d4faaca729d6d4a4aa551",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x940a2db1b7008b6c776d4faaca729d6d4a4aa551"
+            },
+            "starkTokenId": "0x28ac7a944aae0199887b14620ae2bbd4571e19a4553dd2419e6ca8f16d43c5f",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "dusk-network",
+            "deployedAtBlock": 6867115
+        },
+        "MKR": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.01,
+            "transferFee": 0.0002,
+            "tokenAddress": "0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2"
+            },
+            "starkTokenId": "0x1a4af39d27ce2e3445ed084809e5bc36d03918df04b7e2b6ee3c769a9892600",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "maker",
+            "deployedAtBlock": 4620855
+        },
+        "BTC": {
+            "decimals": 8,
+            "quantization": 100,
+            "minOrderSize": 0.001,
+            "transferFee": 0.00002,
+            "tokenAddress": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
+            },
+            "starkTokenId": "0x1ff2b4f347ef6ad30e087ab8043dd7563c88c617de65cf24cd666a5fd441351",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "bitcoin",
+            "deployedAtBlock": 6766284
+        },
+        "ZRX": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 20,
+            "transferFee": 0.5,
+            "tokenAddress": "0xe41d2489571d322189246dafa5ebde1f4699f498",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xe41d2489571d322189246dafa5ebde1f4699f498"
+            },
+            "starkTokenId": "0x26ce9f287ea325c031bafdc647f27b331e864a0661aedb5ebdfb1b671289667",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "0x",
+            "deployedAtBlock": 4145415
+        },
+        "NEC": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 50,
+            "transferFee": 5,
+            "tokenAddress": "0xcc80c051057b774cd75067dc48f8987c4eb97a5e",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xcc80c051057b774cd75067dc48f8987c4eb97a5e"
+            },
+            "starkTokenId": "0x2c27851c648a31b4f5e2253a5bba3e61382a83a4daeb2a905f74757297f391d",
+            "coingeckoId": "nectar-token",
+            "deployedAtBlock": 5072026
+        },
+        "USDT": {
+            "decimals": 6,
+            "quantization": 1,
+            "minOrderSize": 10,
+            "settleSpread": 0,
+            "transferFee": 1,
+            "tokenAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+                "MATIC_POS_PARENT": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+                "MATIC_POS": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+                "ARBITRUM": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9"
+            },
+            "starkTokenId": "0x2ce625e94458d39dd0bf3b45a843544dd4a14b8169045a3a3d15aa564b936c5",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "tether",
+            "deployedAtBlock": 4634748,
+            "bitfinexWithdrawalAddress": "0x50f28352380f297b29b3318c1222537b2e58a086"
+        },
+        "OMG": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 10,
+            "transferFee": 0.2,
+            "tokenAddress": "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07"
+            },
+            "starkTokenId": "0x520528c3d1ad53a721231ec1f92227d37a14f3fd852fabdd261eb96227d031",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "omisego",
+            "deployedAtBlock": 3978297
+        },
+        "USDC": {
+            "decimals": 6,
+            "quantization": 1,
+            "minOrderSize": 10,
+            "transferFee": 1,
+            "tokenAddress": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+                "MATIC_POS_PARENT": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+                "MATIC_POS": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                "ARBITRUM": "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8"
+            },
+            "starkTokenId": "0x2893294412a4c8f915f75892b395ebbf6859ec246ec365c3b1f56f47c3a0a5d",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "usd-coin",
+            "deployedAtBlock": 6082465
+        },
+        "FUN": {
+            "decimals": 8,
+            "quantization": 100,
+            "minOrderSize": 4000,
+            "transferFee": 30,
+            "tokenAddress": "0x419d0d8bdd9af5e606ae2232ed285aff190e711b",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x419d0d8bdd9af5e606ae2232ed285aff190e711b"
+            },
+            "starkTokenId": "0x32d7ef7c4ed4db680494db3ebc813a2c60c00d3747e6f563799cc801b1699d5",
+            "coingeckoId": "funfair",
+            "deployedAtBlock": 3988945
+        },
+        "PNK": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 250,
+            "transferFee": 5,
+            "tokenAddress": "0x93ed3fbe21207ec2e8f2d3c3de6e058cb73bc04d",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x93ed3fbe21207ec2e8f2d3c3de6e058cb73bc04d"
+            },
+            "starkTokenId": "0x2c77fdc97759f654a74b6ba9845219df635f53ffa877bdfc69f4dbf7028885a",
+            "fastWithdrawalRequiredGas": 210000,
+            "coingeckoId": "kleros",
+            "deployedAtBlock": 5257012
+        },
+        "LINK": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 1,
+            "transferFee": 0.03,
+            "tokenAddress": "0x514910771af9ca656af840dff83e8264ecf986ca",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x514910771af9ca656af840dff83e8264ecf986ca"
+            },
+            "starkTokenId": "0x155d72fdf10a9b48e53a4dafc07777588ab028775aaccfac7fbebfbe1d9f7b0",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "chainlink",
+            "deployedAtBlock": 4281611
+        },
+        "BAT": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 20,
+            "transferFee": 1,
+            "tokenAddress": "0x0d8775f648430679a709e98d2b0cb6250d2887ef",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x0d8775f648430679a709e98d2b0cb6250d2887ef"
+            },
+            "starkTokenId": "0x3e79f4dfdbd0dea452c22801ebf43a5f01cc127cb8955be0553d7d461e1c607",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "basic-attention-token",
+            "deployedAtBlock": 3788558
+        },
+        "MLN": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.2,
+            "transferFee": 0.02,
+            "tokenAddress": "0xec67005c4e498ec7f55e092bd1d35cbc47c91892",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xec67005c4e498ec7f55e092bd1d35cbc47c91892"
+            },
+            "starkTokenId": "0x17e258e6c7dc57c8b9507c1cce0a7a18565ef0d1af1242945ef4e44b7dda1d4",
+            "coingeckoId": "melon",
+            "deployedAtBlock": 7130380
+        },
+        "COMP": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.07,
+            "transferFee": 0.002,
+            "tokenAddress": "0xc00e94cb662c3520282e6f5717214004a7f26888",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xc00e94cb662c3520282e6f5717214004a7f26888"
+            },
+            "starkTokenId": "0x5acb69e0d48a3d68e394ba2d5ceb0efc00565b80d63835b410116f293975ea",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "compound-governance-token",
+            "deployedAtBlock": 9601359
+        },
+        "UNI": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 2,
+            "transferFee": 0.03,
+            "tokenAddress": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+            },
+            "starkTokenId": "0x52f7a6e9735bee915ecc2b45f716cc7469ec70fdd75e946c87dfce75ef33b3",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "uniswap",
+            "deployedAtBlock": 10861674
+        },
+        "YFI": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.0007,
+            "transferFee": 0.00003,
+            "tokenAddress": "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e"
+            },
+            "starkTokenId": "0x200068154b056d930907d57ee87a7a3a69a8eb2616f4582a3c2d1758c69b8e3",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "yearn-finance",
+            "deployedAtBlock": 10475744
+        },
+        "BAL": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.7,
+            "transferFee": 0.015,
+            "tokenAddress": "0xba100000625a3754423978a60c9317c58a424e3d",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xba100000625a3754423978a60c9317c58a424e3d"
+            },
+            "starkTokenId": "0x8663cbfc7501a220d52f595a6d28e22c5a403613700f6ed0c3c38e7bda4281",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "balancer",
+            "deployedAtBlock": 10299683
+        },
+        "SNX": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 3.5,
+            "transferFee": 0.04,
+            "tokenAddress": "0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f"
+            },
+            "starkTokenId": "0x1e2ae6df91bdab7e2fc34aa064d36314d4e2a6fb5b0399c4a12c552f38a22ba",
+            "fastWithdrawalRequiredGas": 240000,
+            "coingeckoId": "havven",
+            "deployedAtBlock": 8314597
+        },
+        "AAVE": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.1,
+            "maxOrderSize": 10000000,
+            "transferFee": 0.002,
+            "tokenAddress": "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9"
+            },
+            "starkTokenId": "0x2b018dcfca4a25c9a12c06b82af401bafa86a72c3c54ca0b58077b4b954ea33",
+            "fastWithdrawalRequiredGas": 280000,
+            "coingeckoId": "aave",
+            "deployedAtBlock": 10926829
+        },
+        "HEZ": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 3.5,
+            "transferFee": 0.15,
+            "tokenAddress": "0xeef9f339514298c6a857efcfc1a762af84438dee",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xeef9f339514298c6a857efcfc1a762af84438dee"
+            },
+            "starkTokenId": "0x2cb86b028fd5886f8adc6887f106b97da846e729e71433c72dcb8be73d67a9c",
+            "coingeckoId": "hermez-network-token",
+            "deployedAtBlock": 11056775
+        },
+        "ANT": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 5,
+            "transferFee": 0.1,
+            "tokenAddress": "0xa117000000f279d81a1d3cc75430faa017fa5a2e",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xa117000000f279d81a1d3cc75430faa017fa5a2e"
+            },
+            "starkTokenId": "0x20f290220d6ed1c1b91466f0f827e43406d182c8b7783b0df728b4f40fae233",
+            "coingeckoId": "aragon",
+            "deployedAtBlock": 11060110
+        },
+        "DPI": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.16,
+            "transferFee": 0.002,
+            "tokenAddress": "0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x1494ca1f11d487c2bbe4543e90080aeba4ba3c2b"
+            },
+            "starkTokenId": "0x3cc625127856604e5aac53706d9ef78e6ca1c2fa6e9527506aa7e436bf20337",
+            "coingeckoId": "defipulse-index",
+            "deployedAtBlock": 10830516
+        },
+        "LRC": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 85,
+            "transferFee": 1,
+            "tokenAddress": "0xbbbbca6a901c926f240b89eacb641d8aec7aeafd",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xbbbbca6a901c926f240b89eacb641d8aec7aeafd"
+            },
+            "starkTokenId": "0x109357cc6366baceb779c26ce6a670c70de91e0f889f23eb20e49e053919423",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "loopring",
+            "deployedAtBlock": 7544036
+        },
+        "SUSHI": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 2,
+            "transferFee": 0.05,
+            "tokenAddress": "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2"
+            },
+            "starkTokenId": "0x1aea146c03bc7bd2102a65ae9bccb23246e319b17dcf88fdd0d1029a417b7d",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "sushi",
+            "deployedAtBlock": 10736094
+        },
+        "CUSDT": {
+            "decimals": 8,
+            "quantization": 100,
+            "minOrderSize": 300,
+            "maxOrderSize": 100000000,
+            "transferFee": 60,
+            "tokenAddress": "0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9"
+            },
+            "starkTokenId": "0x1c19dac2acd6dd66fedd77e61c65aaa022fcd928f4a0b2239bdf253f65be22c",
+            "coingeckoId": "compound-usdt",
+            "deployedAtBlock": 9879363
+        },
+        "LDO": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 25,
+            "maxOrderSize": 10000000,
+            "transferFee": 0.5,
+            "tokenAddress": "0x5a98fcbea516cf06857215779fd812ca3bef1b32",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x5a98fcbea516cf06857215779fd812ca3bef1b32"
+            },
+            "starkTokenId": "0x25e64a8b06180f3dcb014ae5a60455cc8c676d9ad46cef9a54a5a903381b7e",
+            "fastWithdrawalRequiredGas": 210000,
+            "coingeckoId": "lido-dao",
+            "deployedAtBlock": 11473216
+        },
+        "CRV": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 20,
+            "maxOrderSize": 100000,
+            "transferFee": 0.5,
+            "tokenAddress": "0xd533a949740bb3306d119cc777fa900ba034cd52",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xd533a949740bb3306d119cc777fa900ba034cd52"
+            },
+            "starkTokenId": "0x1ff699bcfef12cc7b9fb3c69a0c1df915e434f9cb6e3b9099515b116f12b5d",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "curve-dao-token",
+            "deployedAtBlock": 10647806
+        },
+        "TORN": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.3,
+            "transferFee": 0.01,
+            "tokenAddress": "0x77777feddddffc19ff86db637967013e6c6a116c",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x77777feddddffc19ff86db637967013e6c6a116c"
+            },
+            "starkTokenId": "0x3aad1b58d18778c117786431aea79acb4f4a9581992b2adda19af7f892f84da",
+            "coingeckoId": "tornado-cash",
+            "deployedAtBlock": 11474599
+        },
+        "1INCH": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 10,
+            "transferFee": 0.2,
+            "tokenAddress": "0x111111111117dc0aa78b770fa6a738034120c302",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x111111111117dc0aa78b770fa6a738034120c302"
+            },
+            "starkTokenId": "0x1debe4e8d8dee240a8cfffc66847313a5d072eda164cc38733ac4a5cddca0da",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "1inch",
+            "deployedAtBlock": 11511393
+        },
+        "ALN": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 40,
+            "maxOrderSize": 10000000,
+            "transferFee": 2,
+            "tokenAddress": "0x8185bc4757572da2a610f887561c32298f1a5748",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x8185bc4757572da2a610f887561c32298f1a5748"
+            },
+            "starkTokenId": "0x361ad684e3387e6c56e3faab7ad4829781716bfd9b7e6b341d9481f0019c058",
+            "coingeckoId": "aluna",
+            "deployedAtBlock": 11966482
+        },
+        "WSTETH": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.01,
+            "maxOrderSize": 1000,
+            "transferFee": 0.0003,
+            "tokenAddress": "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
+            },
+            "starkTokenId": "0x16d3117c099642acfca604786a73984987728d7fc02690f598c1118b588fb38",
+            "coingeckoId": "staked-ether",
+            "deployedAtBlock": 11888477
+        },
+        "INV": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.01,
+            "transferFee": 0.001,
+            "tokenAddress": "0x41d5d79431a913c4ae7d69a668ecdfe5ff9dfb68",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x41d5d79431a913c4ae7d69a668ecdfe5ff9dfb68"
+            },
+            "starkTokenId": "0x1a2bb1e8eb95dda77814d09e49f9f892b610d229937c3b71149fed54b33920d",
+            "coingeckoId": "inverse-finance",
+            "deployedAtBlock": 11498340
+        },
+        "RUNE": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 3.5,
+            "transferFee": 0.1,
+            "tokenAddress": "0x3155ba85d5f96b2d030a4966af206230e46849cb",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x3155ba85d5f96b2d030a4966af206230e46849cb"
+            },
+            "starkTokenId": "0x3e46c2e13cc9f28339bbb2ba202c993ec19e535b2aa8ee3fae051b0b648fc70",
+            "coingeckoId": "thorchain",
+            "deployedAtBlock": 11644425
+        },
+        "ROOK": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.14,
+            "transferFee": 0.0025,
+            "tokenAddress": "0xfa5047c9c78b8877af97bdcb85db743fd7313d4a",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xfa5047c9c78b8877af97bdcb85db743fd7313d4a"
+            },
+            "starkTokenId": "0x161247c2a777dd41f0f7f75071c999c25825208d1fda112dbcb20554752713d",
+            "coingeckoId": "rook",
+            "deployedAtBlock": 11169699
+        },
+        "GRT": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 30,
+            "transferFee": 0.5,
+            "tokenAddress": "0xc944e90c64b2c07662a292be6244bdf05cda44a7",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xc944e90c64b2c07662a292be6244bdf05cda44a7"
+            },
+            "starkTokenId": "0x29a01c8add7b72fec5dc47cc42422b7f768d307f75fd3abff2978254b12f1f7",
+            "coingeckoId": "the-graph",
+            "deployedAtBlock": 11446769
+        },
+        "BADGER": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 2,
+            "transferFee": 0.03,
+            "tokenAddress": "0x3472a5a71965499acd81997a54bba8d852c6e53d",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x3472a5a71965499acd81997a54bba8d852c6e53d"
+            },
+            "starkTokenId": "0x16c50dc7bc4d646f4348ede0cb06d82200a83439810ffc02ee671a8a2002d4c",
+            "coingeckoId": "badger-dao",
+            "deployedAtBlock": 11348423
+        },
+        "NU": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 121,
+            "transferFee": 2,
+            "tokenAddress": "0x4fe83213d56308330ec302a8bd641f1d0113a4cc",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x4fe83213d56308330ec302a8bd641f1d0113a4cc"
+            },
+            "starkTokenId": "0x319333841362da037e36a9bf3361f9f232a3dea6c91c12aeb25148bd9f34b76",
+            "coingeckoId": "nucypher",
+            "deployedAtBlock": 10763456
+        },
+        "REN": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 60,
+            "transferFee": 1,
+            "tokenAddress": "0x408e41876cccdc0f92210600ef50372656052a38",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x408e41876cccdc0f92210600ef50372656052a38"
+            },
+            "starkTokenId": "0x2541a6e2385351071782cd14739f74f351b83cfe173a2bcd6134d53eb130617",
+            "coingeckoId": "republic-protocol",
+            "deployedAtBlock": 4827494
+        },
+        "wXNM": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.6,
+            "transferFee": 0.01,
+            "tokenAddress": "0x0d438f3b5175bebc262bf23753c1e53d03432bde",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x0d438f3b5175bebc262bf23753c1e53d03432bde"
+            },
+            "starkTokenId": "0x1a2b7abf32289a4d367838371b585a15c998a0939511b8b5ffb89afae92de68",
+            "coingeckoId": "wrapped-nxm",
+            "deployedAtBlock": 10383026
+        },
+        "CEL": {
+            "decimals": 4,
+            "quantization": 1,
+            "minOrderSize": 8,
+            "transferFee": 0.1,
+            "tokenAddress": "0xaaaebe6fe48e54f431b0c390cfaf0b017d09d42d",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xaaaebe6fe48e54f431b0c390cfaf0b017d09d42d"
+            },
+            "starkTokenId": "0x32187f7d3db76378152d69d5ff22a5761496596ff4e91708d72d0c939d82825",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "celsius-degree-token",
+            "deployedAtBlock": 5409020
+        },
+        "EXRD": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 450,
+            "transferFee": 10,
+            "tokenAddress": "0x6468e79a80c0eab0f9a2b574c8d5bc374af59414",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x6468e79a80c0eab0f9a2b574c8d5bc374af59414"
+            },
+            "starkTokenId": "0x2e58176c80cb81f92daf7f1a6826ae3f347048e759129dd78cd85a3bb158a5b",
+            "coingeckoId": "e-radix",
+            "deployedAtBlock": 11138920
+        },
+        "DVF": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 2,
+            "maxOrderSize": 1000000,
+            "transferFee": 0.2,
+            "tokenAddress": "0xdddddd4301a082e62e84e43f474f044423921918",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xdddddd4301a082e62e84e43f474f044423921918"
+            },
+            "starkTokenId": "0x12b78656a284603f18b4f334540d7f8c7568a2da44e15532b1e8af05cf0ff64",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "deversifi",
+            "deployedAtBlock": 12008914
+        },
+        "xDVF": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 2,
+            "maxOrderSize": 1000000,
+            "transferFee": 0.2,
+            "tokenAddress": "0xdddd0e38d30dd29c683033fa0132f868597763ab",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xdddd0e38d30dd29c683033fa0132f868597763ab"
+            },
+            "starkTokenId": "0x2f1ac180be47ec22c2315cc442d53d92f3be8e1d0249263e6598cf4ecddab78",
+            "coingeckoId": "deversifi",
+            "deployedAtBlock": 12554375
+        },
+        "MATIC": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 5,
+            "maxOrderSize": 100000,
+            "transferFee": 0.5,
+            "tokenAddress": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
+                "MATIC_POS": "0x0000000000000000000000000000000000000000",
+                "MATIC_POS_PARENT": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0"
+            },
+            "starkTokenId": "0x29ed085d11df04b59ba5830088d9ecd19c51834375a988257a1e3ff6ef82020",
+            "coingeckoId": "matic-network",
+            "deployedAtBlock": 12008914
+        },
+        "ERP": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 5,
+            "maxOrderSize": 1000000,
+            "transferFee": 2,
+            "tokenAddress": "0x0a0e3bfd5a8ce610e735d4469bc1b3b130402267",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x0a0e3bfd5a8ce610e735d4469bc1b3b130402267",
+                "MATIC_POS": "0x28acca4ed2f6186c3d93e20e29e6e6a9af656341",
+                "MATIC_POS_PARENT": "0x0a0e3bfd5a8ce610e735d4469bc1b3b130402267"
+            },
+            "starkTokenId": "0xf7637b1d4371911193280b9159fd059a81b8fcd4f9af0ac33099b685add019",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "entropyfi",
+            "deployedAtBlock": 12008914
+        },
+        "SHIB": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 100000,
+            "maxOrderSize": 1000000000000000,
+            "transferFee": 10000,
+            "tokenAddress": "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce"
+            },
+            "starkTokenId": "0x81aa49c199a78e0a085fc5552cc9fa460b111a730d2e4cd37ac8dd58ba117",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "shiba-inu",
+            "deployedAtBlock": 12008914
+        },
+        "YGG": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 1.2,
+            "transferFee": 0.12,
+            "tokenAddress": "0x25f8087ead173b73d6e8b84329989a8eea16cf73",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x25f8087ead173b73d6e8b84329989a8eea16cf73"
+            },
+            "starkTokenId": "0x3c4aa5b98913cd02eea8b9d3b8434153dfb737597618dd206931ba2b1362529",
+            "coingeckoId": "yield-guild-games",
+            "deployedAtBlock": 13647585
+        },
+        "ILV": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.01,
+            "transferFee": 0.001,
+            "tokenAddress": "0x767fe9edc9e0df98e07454847909b5e959d7ca0e",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x767fe9edc9e0df98e07454847909b5e959d7ca0e"
+            },
+            "starkTokenId": "0x2617a6d8607364a00be6507494b36cd08d284f3cd135f24c165727f83b2c656",
+            "coingeckoId": "illuvium",
+            "deployedAtBlock": 13647585
+        },
+        "MPL": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.4,
+            "transferFee": 0.04,
+            "tokenAddress": "0x33349b282065b0284d756f0577fb39c158f935e6",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x33349b282065b0284d756f0577fb39c158f935e6"
+            },
+            "starkTokenId": "0x351977643934a7fd15a51ab5ec9ac0b1e9e2d31265f5719f702f557f9635cd0",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "maple",
+            "deployedAtBlock": 13647585
+        },
+        "TOKE": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.15,
+            "transferFee": 0.015,
+            "tokenAddress": "0x2e9d63788249371f1dfc918a52f8d799f4a38c94",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x2e9d63788249371f1dfc918a52f8d799f4a38c94"
+            },
+            "starkTokenId": "0x24559e07e04e8ef82e78d5818b80df63aa099c137ab2bf2a6a552b72cd4314c",
+            "coingeckoId": "tokemak",
+            "deployedAtBlock": 13647585
+        },
+        "BOND": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.3,
+            "transferFee": 0.03,
+            "tokenAddress": "0x0391d2021f89dc339f60fff84546ea23e337750f",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x0391d2021f89dc339f60fff84546ea23e337750f"
+            },
+            "starkTokenId": "0x1608fa60004683ed89ea92507504336764a823db8b8dd217cf49757d9a6b69c",
+            "coingeckoId": "barnbridge",
+            "deployedAtBlock": 13647585
+        },
+        "RAI": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 5,
+            "maxOrderSize": 100000,
+            "transferFee": 0.3,
+            "tokenAddress": "0x03ab458634910aad20ef5f1c8ee96f1d6ac54919",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x03ab458634910aad20ef5f1c8ee96f1d6ac54919"
+            },
+            "starkTokenId": "0xa9bca26af49f74a827928f7a1e7a93cf36001b9ecdc83fdf4de0825c88b25d",
+            "coingeckoId": "rai",
+            "deployedAtBlock": 13647585
+        },
+        "SPELL": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 250,
+            "maxOrderSize": 1000000,
+            "transferFee": 50,
+            "tokenAddress": "0x090185f2135308bad17527004364ebcc2d37e5f6",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x090185f2135308bad17527004364ebcc2d37e5f6"
+            },
+            "starkTokenId": "0x1fa1ce66d6cbdb33c315402d4aecb2bb87667d02d359e5b09cae026c6d25b96",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "spell-token",
+            "deployedAtBlock": 13647585
+        },
+        "MANA": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 4,
+            "maxOrderSize": 100000,
+            "transferFee": 0.3,
+            "tokenAddress": "0x0f5d2fb29fb7d3cfee444a200298f468908cc942",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x0f5d2fb29fb7d3cfee444a200298f468908cc942"
+            },
+            "starkTokenId": "0x379c7dbaaf91e2dc6c579e5eee22493826ca26c34c936f8a35def5529d4cd4e",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "decentraland",
+            "deployedAtBlock": 13647585
+        },
+        "LTC": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 0.09,
+            "maxOrderSize": 100000,
+            "transferFee": 0.01,
+            "tokenAddress": "0x5979f50f1d4c08f9a53863c2f39a7b0492c38d0f",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x5979f50f1d4c08f9a53863c2f39a7b0492c38d0f"
+            },
+            "starkTokenId": "0xc96a247323bab04a09c3e6536276e1f5e1a0a2f2c6ebbabdc1680c37e92c2b",
+            "coingeckoId": "litecoin",
+            "deployedAtBlock": 13888368
+        },
+        "DOGE": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 55,
+            "maxOrderSize": 1000000,
+            "transferFee": 5,
+            "tokenAddress": "0xd055b033b2d72e4b2c26048c5d412026c1823015",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xd055b033b2d72e4b2c26048c5d412026c1823015"
+            },
+            "starkTokenId": "0x3e152434c77cb160b478f56bd0ebd9d121c718946b43b0039b0a6759b953660",
+            "coingeckoId": "dogecoin",
+            "deployedAtBlock": 13888368
+        },
+        "PSP": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 30,
+            "maxOrderSize": 1000000,
+            "transferFee": 3,
+            "tokenAddress": "0xcafe001067cdef266afb7eb5a286dcfd277f3de5",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xcafe001067cdef266afb7eb5a286dcfd277f3de5",
+                "MATIC_POS": "0x42d61d766b85431666b39b89c43011f24451bff6",
+                "MATIC_POS_PARENT": "0xcafe001067cdef266afb7eb5a286dcfd277f3de5"
+            },
+            "starkTokenId": "0x307458689605eb004a20f0c5698fbf4c3b800f57545830800d7d9b7be9cc6e",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "paraswap",
+            "deployedAtBlock": 13619386
+        },
+        "AUST": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 10,
+            "maxOrderSize": 1000000,
+            "transferFee": 1,
+            "tokenAddress": "0xa8de3e3c934e2a1bb08b010104ccabbd4d6293ab",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xa8de3e3c934e2a1bb08b010104ccabbd4d6293ab"
+            },
+            "starkTokenId": "0x32ec7ec94c464c2a1c17c4892184fa1966872ddf94b3a7656a0c805e2bd7deb",
+            "coingeckoId": "anchorust",
+            "deployedAtBlock": 13619386
+        },
+        "WAMPL": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 2,
+            "maxOrderSize": 100000,
+            "transferFee": 0.1,
+            "tokenAddress": "0xedb171c18ce90b633db442f2a6f72874093b49ef",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0xedb171c18ce90b633db442f2a6f72874093b49ef"
+            },
+            "starkTokenId": "0x13e34f1592b082d8cb8214cd00259d87dda36d111a9fa51b7bf975e5b59095e",
+            "coingeckoId": "wrapped-ampleforth",
+            "deployedAtBlock": 14351740
+        },
+        "YAE": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 200,
+            "maxOrderSize": 1000000,
+            "transferFee": 20,
+            "tokenAddress": "0x4ee438be38f8682abb089f2bfea48851c5e71eaf",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x4ee438be38f8682abb089f2bfea48851c5e71eaf"
+            },
+            "starkTokenId": "0x200f51c5a6f5d42802cb11f30a7f714c0eeb9ae934b010178f4fb70a5ef9ef4",
+            "coingeckoId": "cryptonovae",
+            "deployedAtBlock": 14351740
+        },
+        "APE": {
+            "decimals": 18,
+            "quantization": 10000000000,
+            "minOrderSize": 1,
+            "maxOrderSize": 100000,
+            "transferFee": 0.1,
+            "tokenAddress": "0x4d224452801aced8b2f0aebe155379bb5d594381",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x4d224452801aced8b2f0aebe155379bb5d594381"
+            },
+            "starkTokenId": "0x359c3677f4433235d4b6aa22ba851fd15b2d624335226128a9fcfa090b831",
+            "fastWithdrawalRequiredGas": 120000,
+            "coingeckoId": "apecoin",
+            "deployedAtBlock": 14411793
+        },
+        "LP-TEMP": {
+            "decimals": 18,
+            "quantization": 1000,
+            "minOrderSize": 0.001,
+            "maxOrderSize": 2500000,
+            "transferFee": 0.001,
+            "tokenAddress": "0x000000000000000000000000000000000000dead",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x000000000000000000000000000000000000dead"
+            },
+            "starkTokenId": "0x09000000009000000090000000009000000000900000000000000000000000",
+            "deployedAtBlock": 13716358
+        },
+        "LP-TEMP-MPL": {
+            "decimals": 18,
+            "quantization": 1000,
+            "minOrderSize": 0.001,
+            "maxOrderSize": 2500000,
+            "transferFee": 0.001,
+            "tokenAddress": "0x000000000000000000000000000000000000deaa",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x000000000000000000000000000000000000deaa"
+            },
+            "starkTokenId": "0x05000000005000000050000000005000000000500000000000000000000000",
+            "deployedAtBlock": 13716358
+        },
+        "LP-TEMP-LDO": {
+            "decimals": 18,
+            "quantization": 1000,
+            "minOrderSize": 0.001,
+            "maxOrderSize": 2500000,
+            "transferFee": 0.001,
+            "tokenAddress": "0x000000000000000000000000000000000000deab",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x000000000000000000000000000000000000deab"
+            },
+            "starkTokenId": "0x04000000004000000040000000004000000000400000000000000000000000",
+            "deployedAtBlock": 13716358
+        },
+        "LP-TEMP-CRV": {
+            "decimals": 18,
+            "quantization": 1000,
+            "minOrderSize": 0.001,
+            "maxOrderSize": 2500000,
+            "transferFee": 0.001,
+            "tokenAddress": "0x000000000000000000000000000000000000deac",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x000000000000000000000000000000000000deac"
+            },
+            "starkTokenId": "0x03000000003000000030000000003000000000300000000000000000000000",
+            "deployedAtBlock": 13716358
+        },
+        "LP-TEMP-RAI": {
+            "decimals": 18,
+            "quantization": 1000,
+            "minOrderSize": 0.001,
+            "maxOrderSize": 2500000,
+            "transferFee": 0.001,
+            "tokenAddress": "0x000000000000000000000000000000000000deae",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x000000000000000000000000000000000000deae"
+            },
+            "starkTokenId": "0x02000000002000000020000000002000000000200000000000000000000000",
+            "deployedAtBlock": 13716358
+        },
+        "LP-TEMP-MATIC": {
+            "decimals": 18,
+            "quantization": 1000,
+            "minOrderSize": 0.001,
+            "maxOrderSize": 2500000,
+            "transferFee": 0.001,
+            "tokenAddress": "0x000000000000000000000000000000000000deaf",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x000000000000000000000000000000000000deaf"
+            },
+            "starkTokenId": "0x01000000001000000010000000001000000000100000000000000000000000",
+            "deployedAtBlock": 13716358
+        },
+        "LP-TEMP-PSP": {
+            "decimals": 18,
+            "quantization": 1000,
+            "minOrderSize": 0.001,
+            "maxOrderSize": 2500000,
+            "transferFee": 0.001,
+            "tokenAddress": "0x000000000000000000000000000000000000deaa",
+            "tokenAddressPerChain": {
+                "ETHEREUM": "0x000000000000000000000000000000000000deaa"
+            },
+            "starkTokenId": "0x08000000005000000050000000005000000000500000000000000000000000",
+            "deployedAtBlock": 13716358
+        }
+    }
+}

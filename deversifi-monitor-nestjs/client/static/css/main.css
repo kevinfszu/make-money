@@ -1,0 +1,28 @@
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.mycontainer {
+    display: flex;
+    flex-flow: column;
+}
+.mycontainer > header {
+    height: 60px;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    background-color: #0d6efd;
+
+    display: flex;
+}
+.btn-set {
+    flex: 0 0 80px;
+}
+
+
+
+/* index.html */
+.warning {
+    color: red;
+}

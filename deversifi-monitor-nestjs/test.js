@@ -29,10 +29,26 @@ const file2 = 'D:\\001-ProgrammingProjects\\LearningNodeJS\\nestjs-test\\client\
 
 const fs = require('fs')
 const { Readable, Stream } = require('stream');
+// const Lame = require("node-lame").Lame;    // 这个库已无人维护，请用 @suldashi/lame 替代
 const lame = require("@suldashi/lame");
-// const Lame = require("node-lame").Lame;
 const Speaker = require('speaker');
-var pcm = require('pcm');
+
+// Create the Speaker instance
+const speaker = new Speaker({
+  channels: 2,          // 2 channels
+  bitDepth: 16,         // 16-bit samples
+  sampleRate: 44100     // 44,100 Hz sample rate
+});
+
+// https://nodejs.org/api/stream.html#readablepause
+const stream = fs.createReadStream(file)
+stream.pipe(new lame.Decoder)
+  .on('format', console.log)
+  .pipe(speaker);
+
+setTimeout(() => {
+  speaker.close()
+}, 5000);
 
 // var stream = fs.createReadStream(file);
 // var decoder = new lame.Decoder();
@@ -43,12 +59,6 @@ var pcm = require('pcm');
 //     this.pipe(speaker);
 // });
 
-// Create the Speaker instance
-const speaker = new Speaker({
-  channels: 2,          // 2 channels
-  bitDepth: 16,         // 16-bit samples
-  sampleRate: 44100     // 44,100 Hz sample rate
-});
 
 // var stream = fs.createReadStream(file);
 // stream.pipe(speaker);
@@ -89,15 +99,6 @@ const speaker = new Speaker({
 // );
 
 
-// https://nodejs.org/api/stream.html#readablepause
-const stream = fs.createReadStream(file)
-stream.pipe(new lame.Decoder)
-  .on('format', console.log)
-  .pipe(speaker);
-
-setTimeout(() => {
-  speaker.close()
-}, 5000);
 
 
 // const stream2 = fs.createReadStream(file2)
@@ -106,26 +107,3 @@ setTimeout(() => {
 // .pipe(new Speaker);
 
 
-
-; (async () => {
-
-  test(wait)
-
-  async function test() {
-    const arr = ['AAA', 'BBB', 'CCC', 'DDD']
-    for (const iterator of arr) {
-      await wait(() => { }, 3000)
-      console.log(iterator)
-    }
-  }
-
-
-  async function wait(callback, ms, ...params) {
-    return new Promise((resolve, reject) => {
-      setTimeout(async () => {
-        await callback(params)
-        resolve(ms)
-      }, ms, params)
-    })
-  }
-})()

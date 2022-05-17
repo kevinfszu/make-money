@@ -15,7 +15,6 @@ const schedule_1 = require("@nestjs/schedule");
 const dayjs = require("dayjs");
 const monitored_token_service_1 = require("../monitored-token/monitored-token.service");
 const axios = require('axios').default;
-const tunnel = require('tunnel');
 let CrawlerService = class CrawlerService {
     constructor(schedulerRegistry, monitoredTokenService) {
         this.schedulerRegistry = schedulerRegistry;
@@ -26,20 +25,21 @@ let CrawlerService = class CrawlerService {
     async handleTimeout() {
         const saveQuote = async () => {
             const monitoredTokens = await this.monitoredTokenService.findAll();
-            for (const monitoredToken of monitoredTokens) {
+            for (const iterator of monitoredTokens) {
                 const quoteParams = {
                     fromTokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-                    toTokenAddress: monitoredToken.tokenAddress,
+                    toTokenAddress: iterator.tokenAddress,
                     amount: 1 * Math.pow(10, 18),
                 };
+                let monitoredToken;
                 try {
                     const quote = await this.fetchQuote(quoteParams);
+                    monitoredToken = await this.monitoredTokenService.findOne(iterator.tokenName);
                     monitoredToken.lastPrice = monitoredToken.currentPrice * 1;
                     monitoredToken.currentPrice = parseFloat((quote.toTokenAmount * Math.pow(10, -monitoredToken.decimals)).toFixed(5));
                     monitoredToken.updateTime = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss');
                 }
                 catch (err) {
-                    console.log(err);
                     if (err.response) {
                         const data = err.response.data;
                         monitoredToken.errorMsg = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss') + '。' + JSON.stringify(data);
@@ -48,7 +48,7 @@ let CrawlerService = class CrawlerService {
                         monitoredToken.errorMsg = `${dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss')}。无法访问 1inch quote 接口。`;
                     }
                 }
-                await this.monitoredTokenService.update(monitoredToken.tokenName, monitoredToken);
+                await this.monitoredTokenService.update(iterator.tokenName, monitoredToken);
             }
         };
         saveQuote();

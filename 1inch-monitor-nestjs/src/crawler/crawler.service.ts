@@ -3,19 +3,8 @@ import { Cron, Interval, SchedulerRegistry, Timeout } from '@nestjs/schedule';
 import * as dayjs from 'dayjs';
 // import * as puppeteer from 'puppeteer-core';
 import { MonitoredTokenService } from 'src/monitored-token/monitored-token.service';
+import { MonitoredToken } from 'src/schemas/monitored-token.schema';
 const axios = require('axios').default;
-const tunnel = require('tunnel')
-
-// const tunnelProxy = tunnel.httpsOverHttp({
-//     proxy: {
-//         host: '127.0.0.1',
-//         port: '58591'
-//     }
-// })
-
-// // 修改 axios 全局配置。（可以在实例中配置覆盖此全局配置）
-// axios.defaults.proxy = false
-// axios.defaults.httpsAgent = tunnelProxy
 
 @Injectable()
 export class CrawlerService {
@@ -30,28 +19,29 @@ export class CrawlerService {
   @Timeout(1000)
   async handleTimeout() {
 
-  // const saveQuote = async (monitoredTokenService, fetchQuote) => {
   const saveQuote = async () => {
     // 读取受监控代币
     const monitoredTokens = await this.monitoredTokenService.findAll();
 
-    for (const monitoredToken of monitoredTokens) {
+    for (const iterator of monitoredTokens) {
       const quoteParams = {
         fromTokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // ETH
-        toTokenAddress: monitoredToken.tokenAddress,
+        toTokenAddress: iterator.tokenAddress,
         amount: 1 * Math.pow(10, 18), // 基于 ETH 的精度（即 18）
       };
 
+      let monitoredToken: MonitoredToken
       try {
         const quote = await this.fetchQuote(quoteParams)
-        // console.log(monitoredToken.tokenName, quoteParams, quote)
+        // console.log(iterator.tokenName, quoteParams, quote)
 
         // 在已有的代币信息的基础上修改
+        monitoredToken = await this.monitoredTokenService.findOne(iterator.tokenName);    // 将读取并修改本地数据库的操作放在延迟性较高的 fetchQuote 后面，避免与页面的 edit 模块冲突。
         monitoredToken.lastPrice = monitoredToken.currentPrice * 1;
         monitoredToken.currentPrice = parseFloat((quote.toTokenAmount * Math.pow(10, -monitoredToken.decimals)).toFixed(5));
         monitoredToken.updateTime = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss');
       } catch (err) {
-        console.log(err)
+        // console.log(err)
         if (err.response) {
           const data = err.response.data;
           // monitoredToken.error = `${data.statusCode}, ${data.description}`
@@ -62,14 +52,12 @@ export class CrawlerService {
         }
       }
 
-      await this.monitoredTokenService.update(monitoredToken.tokenName, monitoredToken);
+      await this.monitoredTokenService.update(iterator.tokenName, monitoredToken);
       // console.log(`${dayjs().format('HH:mm:ss')}, ${monitoredToken.tokenName} currentPrice: ${monitoredToken.currentPrice}`)
     }
   }
 
-    // saveQuote(this.monitoredTokenService, this.fetchQuote);
     saveQuote();
-    // const interval = setInterval(saveQuote, 20000, this.monitoredTokenService, this.fetchQuote);
     const interval = setInterval(saveQuote, 20000);
     this.schedulerRegistry.addInterval('crawler', interval);
   }
@@ -91,39 +79,17 @@ export class CrawlerService {
     // console.log(tokens)
     return tokens;
   }
-  // fetTokens()     // FIXME: 用于测试
 
   async fetchQuote(quoteParams) {
-    // const quoteParams = {
-    //     fromTokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // ETH
-    //     toTokenAddress: '0x5a98fcbea516cf06857215779fd812ca3bef1b32', // LDO
-    //     amount: '1000000000000000000'
-    // }
-
-    // interface Quote = {
-    //   fromToken: Object,
-    //   toToken: Object,
-    //   toTokenAmount: String
-    // }
 
     const quote = await axios(this.buildApiRequestUrl('/quote', quoteParams))
-      // .then(res => res.json())
       .then((res) => {
         // console.log(res.data)
         return res.data;
       });
-    // .catch((err) => {
-    //     console.log('获取最佳报价出错。', quoteParams, err)
-    // })
-    // console.log('quote api: ', quote)
 
     return quote;
   }
-  // fetchQuote({
-  //     fromTokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // ETH
-  //     toTokenAddress: '0x5a98fcbea516cf06857215779fd812ca3bef1b32', // LDO
-  //     amount: '1000000000000000000'
-  // })     // FIXME: 用于测试
 
   // async wait(callback, ms, ...params) {
   //   return new Promise((resolve, reject) => {

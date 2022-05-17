@@ -42,6 +42,9 @@ export class CrawlerService {
         monitoredToken.updateTime = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss');
       } catch (err) {
         // console.log(err)
+        // 在已有的代币信息的基础上修改
+        monitoredToken = await this.monitoredTokenService.findOne(iterator.tokenName);
+
         if (err.response) {
           const data = err.response.data;
           // monitoredToken.error = `${data.statusCode}, ${data.description}`

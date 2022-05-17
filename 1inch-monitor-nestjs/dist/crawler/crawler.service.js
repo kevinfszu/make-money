@@ -40,6 +40,7 @@ let CrawlerService = class CrawlerService {
                     monitoredToken.updateTime = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss');
                 }
                 catch (err) {
+                    monitoredToken = await this.monitoredTokenService.findOne(iterator.tokenName);
                     if (err.response) {
                         const data = err.response.data;
                         monitoredToken.errorMsg = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss') + '。' + JSON.stringify(data);

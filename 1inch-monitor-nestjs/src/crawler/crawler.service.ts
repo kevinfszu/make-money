@@ -4,6 +4,18 @@ import * as dayjs from 'dayjs';
 // import * as puppeteer from 'puppeteer-core';
 import { MonitoredTokenService } from 'src/monitored-token/monitored-token.service';
 const axios = require('axios').default;
+const tunnel = require('tunnel')
+
+// const tunnelProxy = tunnel.httpsOverHttp({
+//     proxy: {
+//         host: '127.0.0.1',
+//         port: '58591'
+//     }
+// })
+
+// // 修改 axios 全局配置。（可以在实例中配置覆盖此全局配置）
+// axios.defaults.proxy = false
+// axios.defaults.httpsAgent = tunnelProxy
 
 @Injectable()
 export class CrawlerService {
@@ -17,14 +29,11 @@ export class CrawlerService {
 
   @Timeout(1000)
   async handleTimeout() {
-    this.saveQuote(this.monitoredTokenService, this.fetchQuote);
-    const interval = setInterval(this.saveQuote, 20000, this.monitoredTokenService, this.fetchQuote);
-    this.schedulerRegistry.addInterval('crawler', interval);
-  }
 
-  async saveQuote(monitoredTokenService, fetchQuote) {
+  // const saveQuote = async (monitoredTokenService, fetchQuote) => {
+  const saveQuote = async () => {
     // 读取受监控代币
-    const monitoredTokens = await monitoredTokenService.findAll();
+    const monitoredTokens = await this.monitoredTokenService.findAll();
 
     for (const monitoredToken of monitoredTokens) {
       const quoteParams = {
@@ -34,29 +43,35 @@ export class CrawlerService {
       };
 
       try {
-        const quote = await fetchQuote(quoteParams)
-        console.log(monitoredToken.tokenName, quoteParams, quote)
+        const quote = await this.fetchQuote(quoteParams)
+        // console.log(monitoredToken.tokenName, quoteParams, quote)
 
         // 在已有的代币信息的基础上修改
         monitoredToken.lastPrice = monitoredToken.currentPrice * 1;
-        // monitoredToken.currentPrice = (quote.toTokenAmount * Math.pow(10, -monitoredToken.decimals)).toFixed(5) * 1;
-        monitoredToken.currentPrice = 222;
+        monitoredToken.currentPrice = parseFloat((quote.toTokenAmount * Math.pow(10, -monitoredToken.decimals)).toFixed(5));
         monitoredToken.updateTime = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss');
       } catch (err) {
+        console.log(err)
         if (err.response) {
           const data = err.response.data;
           // monitoredToken.error = `${data.statusCode}, ${data.description}`
-          monitoredToken.errorMsg =
-            dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss') + '。' + JSON.stringify(data);
+          monitoredToken.errorMsg = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss') + '。' + JSON.stringify(data);
         } else {
           // monitoredToken.error = `无法访问：${err.config.url}`
           monitoredToken.errorMsg = `${dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss', )}。无法访问 1inch quote 接口。`;
         }
       }
 
-      await monitoredTokenService.update(monitoredToken.tokenName, monitoredToken);
-      console.log(`${dayjs().format('HH:mm:ss')}, ${monitoredToken.tokenName} currentPrice: ${monitoredToken.currentPrice}`)
+      await this.monitoredTokenService.update(monitoredToken.tokenName, monitoredToken);
+      // console.log(`${dayjs().format('HH:mm:ss')}, ${monitoredToken.tokenName} currentPrice: ${monitoredToken.currentPrice}`)
     }
+  }
+
+    // saveQuote(this.monitoredTokenService, this.fetchQuote);
+    saveQuote();
+    // const interval = setInterval(saveQuote, 20000, this.monitoredTokenService, this.fetchQuote);
+    const interval = setInterval(saveQuote, 20000);
+    this.schedulerRegistry.addInterval('crawler', interval);
   }
 
   buildApiRequestUrl(methodName, queryParams = {}) {
@@ -66,8 +81,8 @@ export class CrawlerService {
   }
 
   async fetTokens() {
-    const tokens = await axios(this.buildApiRequestUrl('/tokens')).then(
-      (res) => {
+    const tokens = await axios(this.buildApiRequestUrl('/tokens'))
+      .then((res) => {
         // console.log(res.data)
         return res.data.tokens;
       },
@@ -85,6 +100,12 @@ export class CrawlerService {
     //     amount: '1000000000000000000'
     // }
 
+    // interface Quote = {
+    //   fromToken: Object,
+    //   toToken: Object,
+    //   toTokenAmount: String
+    // }
+
     const quote = await axios(this.buildApiRequestUrl('/quote', quoteParams))
       // .then(res => res.json())
       .then((res) => {
@@ -94,7 +115,7 @@ export class CrawlerService {
     // .catch((err) => {
     //     console.log('获取最佳报价出错。', quoteParams, err)
     // })
-    console.log('quote api: ', quote)
+    // console.log('quote api: ', quote)
 
     return quote;
   }

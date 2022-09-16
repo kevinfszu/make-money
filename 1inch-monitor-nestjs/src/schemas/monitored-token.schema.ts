@@ -12,6 +12,12 @@ export class MonitoredToken {
   @Prop({ default: '' })
   tokenAddress: string;
 
+  @Prop({ default: 1 })
+  baseNumber: number;
+
+  @Prop({ default: '' })
+  baseUnit: string;
+
   @Prop({ default: 0 })
   decimals: number;
 

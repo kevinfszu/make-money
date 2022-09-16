@@ -9,6 +9,7 @@ export class MonitoredTokenController {
 
   @Post()
   async create(@Body() createMonitoredTokenDto: CreateMonitoredTokenDto) {
+    // console.log(createMonitoredTokenDto)
     const monitoredToken = await this.monitoredTokenService.findOne(createMonitoredTokenDto.tokenName);
     // console.log('monitoredToken: ', monitoredToken);
 
@@ -35,6 +36,7 @@ export class MonitoredTokenController {
 
   @Patch(':tokenName')
   update(@Param('tokenName') tokenName: string, @Body() updateMonitoredTokenDto: UpdateMonitoredTokenDto) {
+    // console.log(updateMonitoredTokenDto)
     if (updateMonitoredTokenDto.warningLowPrice * 1 > updateMonitoredTokenDto.warningHighPrice * 1) {
       throw new BadRequestException('预警币价下限不能大于预警币价上限');
     }

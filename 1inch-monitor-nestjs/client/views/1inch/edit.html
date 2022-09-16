@@ -20,7 +20,11 @@
         <main>
             <form id="myForm" name="myForm" style="width: 400px; margin: 0 auto;">
                 <div class="mb-3">
-                    <label class="form-label">预警币价范围（1 ETH）</label>
+                    <label class="form-label">兑换单位</label>
+                    <input type="number" class="form-control" name="baseNumber" step="1" placeholder="数量"> <input type="text" class="form-control" name="baseUnit" placeholder="单位">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">预警币价范围</label>
                     <input type="number" class="form-control" name="warningLowPrice" step=".00001" placeholder="下限">~<input type="number" class="form-control" name="warningHighPrice" step=".00001" placeholder="上限">
                 </div>
                 <div class="mb-3">
@@ -57,6 +61,8 @@
                 if (res.data.statusCode) {
                         alert(res.data.message)
                 } else {
+                    document.querySelector('input[name=baseNumber]').value = res.data.baseNumber
+                    document.querySelector('input[name=baseUnit]').value = res.data.baseUnit
                     document.querySelector('input[name=warningLowPrice]').value = res.data.warningLowPrice
                     document.querySelector('input[name=warningHighPrice]').value = res.data.warningHighPrice
                     document.querySelector('input[name=warningRange]').value = res.data.warningRange
@@ -72,6 +78,8 @@
                 // console.log(formData)
 
                 axios.patch(`/monitored-token/${tokenName}`, {
+                    baseNumber: document.querySelector('input[name=baseNumber]').value,
+                    baseUnit: document.querySelector('input[name=baseUnit]').value,
                     warningLowPrice: document.querySelector('input[name=warningLowPrice]').value,
                     warningHighPrice: document.querySelector('input[name=warningHighPrice]').value,
                     warningRange: document.querySelector('input[name=warningRange]').value,

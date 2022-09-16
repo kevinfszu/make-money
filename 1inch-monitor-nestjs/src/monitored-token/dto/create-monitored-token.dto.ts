@@ -5,6 +5,12 @@ export class CreateMonitoredTokenDto {
   tokenName: string;
 
   @IsNotEmpty()
+  baseNumber: number;
+
+  @IsNotEmpty()
+  baseUnit: string;
+
+  @IsNotEmpty()
   warningLowPrice: number;
 
   @IsNotEmpty()

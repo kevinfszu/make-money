@@ -17,9 +17,9 @@ export class TokensService {
     return this.tokenModel.find().exec();
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} token`;
-  // }
+  async findOne(symbol: string) {
+    return this.tokenModel.findOne({symbol});
+  }
 
   // update(id: number, updateTokenDto: UpdateTokenDto) {
   //   return `This action updates a #${id} token`;

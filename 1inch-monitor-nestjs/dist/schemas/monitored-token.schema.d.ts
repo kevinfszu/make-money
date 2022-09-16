@@ -11,6 +11,8 @@ export declare type MonitoredTokenDocument = MonitoredToken & Document;
 export declare class MonitoredToken {
     tokenName: string;
     tokenAddress: string;
+    baseNumber: number;
+    baseUnit: string;
     decimals: number;
     currentPrice: number;
     lastPrice: number;

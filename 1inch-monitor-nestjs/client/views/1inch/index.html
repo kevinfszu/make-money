@@ -22,6 +22,7 @@
                 <colgroup>
                     <col style="width: 70px;">
                     <col style="width: 150px;">
+                    <col style="width: 150px;">
                     <col style="width: 180px;">
                     <col style="width: 150px;">
                     <col style="width: 105px;">
@@ -33,11 +34,12 @@
                 <thead>
                     <tr>
                         <th>币种</th>
-                        <th>当前币价<br>(1 ETH)</th>
+                        <th>兑换单位</th>
+                        <th>当前币价</th>
                         <th>当前币价更新时间</th>
-                        <th>上一次币价<br>（1 ETH）</th>
+                        <th>上一次币价</th>
                         <th>币价<br>波动幅度</th>
-                        <th>预警币价范围<br>(1 ETH)</th>
+                        <th>预警币价范围</th>
                         <th>预警波动 (%)</th>
                         <th>错误信息</th>
                         <th>操作</th>
@@ -102,6 +104,7 @@
                             const warning = checkWarning(item) ? 'warning' : ''
                             template += `<tr class="${warning}">
                                 <td>${item.tokenName}</td>
+                                <td>${item.baseNumber} ${item.baseUnit}</td>
                                 <td>${item.currentPrice}</td>
                                 <td>${item.updateTime}</td>
                                 <td>${item.lastPrice}</td>

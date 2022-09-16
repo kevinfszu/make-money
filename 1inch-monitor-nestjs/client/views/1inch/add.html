@@ -34,7 +34,12 @@
                 <div class="mb-3" id="token-list" style="max-height: 300px; overflow-y: auto;"></div>
 
                 <div class="mb-3">
-                    <label class="form-label">预警币价范围（1 ETH）</label>
+                    <label class="form-label">兑换单位</label>
+                    <input type="number" class="form-control" name="baseNumber" step="1" placeholder="数量" value="1"> <input type="text" class="form-control" name="baseUnit" placeholder="单位" value="ETH">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">预警币价范围</label>
                     <input type="number" class="form-control" name="warningLowPrice" step=".00001" placeholder="下限">~<input type="number" class="form-control" name="warningHighPrice" step=".00001" placeholder="上限">
                 </div>
                 <div class="mb-3">
@@ -115,6 +120,8 @@
 
                 axios.post(`/monitored-token`, {
                     tokenName: document.querySelector('input[name=tokenName]').value,
+                    baseNumber: document.querySelector('input[name=baseNumber]').value,
+                    baseUnit: document.querySelector('input[name=baseUnit]').value,
                     tokenAddress: document.querySelector('input[name=tokenAddress]').value,
                     decimals: document.querySelector('input[name=decimals]').value,
                     warningLowPrice: document.querySelector('input[name=warningLowPrice]').value,

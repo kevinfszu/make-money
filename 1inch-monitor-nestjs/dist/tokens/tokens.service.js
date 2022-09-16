@@ -24,6 +24,9 @@ let TokensService = class TokensService {
     async findAll() {
         return this.tokenModel.find().exec();
     }
+    async findOne(symbol) {
+        return this.tokenModel.findOne({ symbol });
+    }
 };
 TokensService = __decorate([
     (0, common_1.Injectable)(),

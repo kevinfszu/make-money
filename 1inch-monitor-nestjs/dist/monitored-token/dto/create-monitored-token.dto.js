@@ -20,6 +20,14 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
+], CreateMonitoredTokenDto.prototype, "baseNumber", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateMonitoredTokenDto.prototype, "baseUnit", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
 ], CreateMonitoredTokenDto.prototype, "warningLowPrice", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),

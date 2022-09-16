@@ -23,6 +23,14 @@ __decorate([
     __metadata("design:type", String)
 ], MonitoredToken.prototype, "tokenAddress", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ default: 1 }),
+    __metadata("design:type", Number)
+], MonitoredToken.prototype, "baseNumber", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: '' }),
+    __metadata("design:type", String)
+], MonitoredToken.prototype, "baseUnit", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ default: 0 }),
     __metadata("design:type", Number)
 ], MonitoredToken.prototype, "decimals", void 0);

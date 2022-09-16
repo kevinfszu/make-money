@@ -4,6 +4,7 @@ import * as dayjs from 'dayjs';
 // import * as puppeteer from 'puppeteer-core';
 import { MonitoredTokenService } from 'src/monitored-token/monitored-token.service';
 import { MonitoredToken } from 'src/schemas/monitored-token.schema';
+import { TokensService } from 'src/tokens/tokens.service';
 const axios = require('axios').default;
 
 @Injectable()
@@ -11,7 +12,7 @@ export class CrawlerService {
   private chainId;
   private apiBaseUrl;
 
-  constructor(private schedulerRegistry: SchedulerRegistry, private readonly monitoredTokenService: MonitoredTokenService) {
+  constructor(private schedulerRegistry: SchedulerRegistry, private readonly monitoredTokenService: MonitoredTokenService, private readonly tokensService: TokensService) {
     this.chainId = 1; // 区块链 ID。详见：https://chainlist.org/
     this.apiBaseUrl = 'https://api.1inch.io/v4.0/' + this.chainId;
   }
@@ -24,10 +25,12 @@ export class CrawlerService {
     const monitoredTokens = await this.monitoredTokenService.findAll();
 
     for (const iterator of monitoredTokens) {
+      const token = await this.tokensService.findOne(iterator.baseUnit.toUpperCase());
       const quoteParams = {
-        fromTokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // ETH
+        // fromTokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', // ETH
+        fromTokenAddress: token.address, // ETH
         toTokenAddress: iterator.tokenAddress,
-        amount: 1 * Math.pow(10, 18), // 基于 ETH 的精度（即 18）
+        amount: 1 * Math.pow(10, token.decimals), // 基于 ETH 的精度（即 18）
       };
 
       let monitoredToken: MonitoredToken
@@ -38,7 +41,7 @@ export class CrawlerService {
         // 在已有的代币信息的基础上修改
         monitoredToken = await this.monitoredTokenService.findOne(iterator.tokenName);    // 将读取并修改本地数据库的操作放在延迟性较高的 fetchQuote 后面，避免与页面的 edit 模块冲突。
         monitoredToken.lastPrice = monitoredToken.currentPrice * 1;
-        monitoredToken.currentPrice = parseFloat((quote.toTokenAmount * Math.pow(10, -monitoredToken.decimals)).toFixed(5));
+        monitoredToken.currentPrice = parseFloat((quote.toTokenAmount * Math.pow(10, -monitoredToken.decimals)).toFixed(5)) * iterator.baseNumber;
         monitoredToken.updateTime = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss');
       } catch (err) {
         // console.log(err)

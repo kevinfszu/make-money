@@ -10,6 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     MongooseModule.forFeature([{ name: Token.name, schema: TokenSchema }]),
   ],
   controllers: [TokensController],
-  providers: [TokensService]
+  providers: [TokensService],
+  exports: [TokensService]
 })
 export class TokensModule {}

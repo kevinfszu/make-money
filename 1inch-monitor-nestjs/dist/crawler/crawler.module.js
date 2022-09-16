@@ -9,12 +9,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CrawlerModule = void 0;
 const common_1 = require("@nestjs/common");
 const monitored_token_module_1 = require("../monitored-token/monitored-token.module");
+const tokens_module_1 = require("../tokens/tokens.module");
 const crawler_service_1 = require("./crawler.service");
 let CrawlerModule = class CrawlerModule {
 };
 CrawlerModule = __decorate([
     (0, common_1.Module)({
-        imports: [monitored_token_module_1.MonitoredTokenModule],
+        imports: [monitored_token_module_1.MonitoredTokenModule, tokens_module_1.TokensModule],
         providers: [crawler_service_1.CrawlerService]
     })
 ], CrawlerModule);

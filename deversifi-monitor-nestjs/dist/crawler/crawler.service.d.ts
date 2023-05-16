@@ -1,5 +1,5 @@
-import { SchedulerRegistry } from "@nestjs/schedule";
-import { MonitoredTokenService } from "src/monitored-token/monitored-token.service";
+import { SchedulerRegistry } from '@nestjs/schedule';
+import { MonitoredTokenService } from 'src/monitored-token/monitored-token.service';
 export declare class CrawlerService {
     private schedulerRegistry;
     private readonly monitoredTokenService;

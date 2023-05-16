@@ -21,7 +21,7 @@ TokensModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: token_entity_1.Token.name, schema: token_schema_1.TokenSchema }]),
         ],
         controllers: [tokens_controller_1.TokensController],
-        providers: [tokens_service_1.TokensService]
+        providers: [tokens_service_1.TokensService],
     })
 ], TokensModule);
 exports.TokensModule = TokensModule;
